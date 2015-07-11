@@ -76,13 +76,15 @@ describe('RethinkResource', function( ){
 					queryset: queryset
 					,filtering:{
 						name:1,
-						age:['lt', 'lte']
+						age:['lt', 'lte'],
+						company:1
 					}
 				}
 				,fields:{
-					name:{type:'char', attribute:'name.first'},
+					name:{type:'char', attribute:'name'},
 					age:{type:'int'},
-					eyes:{type:'char', attribute:'eyeColor'}
+					eyes:{type:'char', attribute:'eyeColor'},
+					company:{ type:'object' }
 				}
 			});
 
@@ -135,6 +137,7 @@ describe('RethinkResource', function( ){
 		});
 
 		it('should allow for nested look-ups',function( done ){
+			debugger;
 			server.inject({
 				url:'/api/rethink/test?company__name__istartswith=c'
 				,method:'get'
@@ -142,12 +145,12 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
-				var content = JSON.parse( response.result )
-				assert.equal(response.statusCode, 200);
+				var content = JSON.parse( response.result)
+				assert.equal(response.statusCode, 200 );
 				content.data.length.should.be.greaterThan( 0 )
 				content.data.forEach(function(item){
 					if( item.company ){
-						item.company.name.charAt(0).should.equal('c')
+						item.company.name.charAt(0).toLowerCase().should.equal('c')
 					}
 				});
 				
