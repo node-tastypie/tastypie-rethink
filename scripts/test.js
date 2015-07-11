@@ -14,12 +14,6 @@ if( production ){
 		,encoding:'utf8'
 	})
 } else {
-	html = fs.createWriteStream('coverage.html',{
-		flags:"w"
-		,encoding:'utf8'
-	});
-	coverage = child_process.spawn("mocha", [ "--recursive", "-r", "jscoverage", "--reporter=html-cov"])
-	coverage.stdout.pipe( html )
 	reporter = process.stdout
 }
 
