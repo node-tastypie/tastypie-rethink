@@ -1,0 +1,47 @@
+{
+  "name": "tastypie-rethink",
+  "version": "0.1.0",
+  "description": "Tastypie resource for a rethinkdb backend using Thinky",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node ./scripts/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esatterwhite/tastypie-rethink.git"
+  },
+  "keywords": [
+    "tastypie",
+    "rethinkdb",
+    "think",
+    "django",
+    "rest",
+    "api"
+  ],
+  "author": "Eric Satterwhite <esatterwhite@wi.rr.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/esatterwhite/tastypie-rethink/issues"
+  },
+  "homepage": "https://github.com/esatterwhite/tastypie-rethink#readme",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "mout": "^0.11.0",
+    "qs": "^4.0.0"
+  },
+  "peerDependencies": {
+    "tastypie": "<1.0.0",
+    "thinky": "^2.0.8"
+  },
+  "devDependencies": {
+    "boom": "^2.8.0",
+    "hapi": "^8.8.0",
+    "joi": "^6.5.0",
+    "mocha": "^2.2.5",
+    "should": "^7.0.2",
+    "tastypie": "^0.4.3"
+  }
+}
