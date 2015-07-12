@@ -44,8 +44,32 @@ var  Model = rethink.createModel('tastypie_model',{
   , friends:    [{name:type.string(), id:type.number() }]
 });
 
+
+var queryset, Rethink;
+	queryset = Model.filter({});
+
+	Rethink = RethinkResource.extend({
+		options:{
+
+			queryset: queryset
+			,filtering:{
+				name:1,
+				age:['lt', 'lte'],
+				company:1
+			}
+		}
+		,fields:{
+			name:{type:'char', attribute:'name'},
+			age:{type:'int'},
+			eyes:{type:'char', attribute:'eyeColor'},
+			company:{ type:'object' }
+		}
+	});
+
+
 describe('RethinkResource', function( ){
 	var api = new Api('api/rethink')
+	api.use('test', new Rethink );
 	before(function( done ){
 		var data = require('./data/test.json');
 		
@@ -64,36 +88,9 @@ describe('RethinkResource', function( ){
 	});
 
 
-	describe('filtering', function( ){
-
-		var queryset, Mongo;
-		before(function( done ){
-			queryset = Model.filter({});
-
-			Rethink = RethinkResource.extend({
-				options:{
-
-					queryset: queryset
-					,filtering:{
-						name:1,
-						age:['lt', 'lte'],
-						company:1
-					}
-				}
-				,fields:{
-					name:{type:'char', attribute:'name'},
-					age:{type:'int'},
-					eyes:{type:'char', attribute:'eyeColor'},
-					company:{ type:'object' }
-				}
-			});
-
-			api.use('test', new Rethink );
-			done();
-		})
-
+	describe('limiting', function(){
+	
 		it('should respect the limit param', function( done ){
-			debugger;
 			server.inject({
 				url:'/api/rethink/test?limit=10'
 				,method:'get'
@@ -105,7 +102,24 @@ describe('RethinkResource', function( ){
 				data.data.length.should.equal( 10 );
 				done();
 			})
-		})
+		});
+
+		it('should no page with a limit of 0', function( done ){
+			server.inject({
+				url:'/api/rethink/test?limit=0'
+				,method:'get'
+				,headers:{
+					Accept:'application/json'
+				}
+			},function( response ){
+				var data = JSON.parse( response.result );
+				data.data.length.should.be.greaterThan( 90 );
+				done();
+			})
+		});
+	})
+
+	describe('filtering', function( ){
 
 		it('should respect filtering definition', function( done ){
 			server.inject({
@@ -136,8 +150,8 @@ describe('RethinkResource', function( ){
 			})
 		});
 
+		
 		it('should allow for nested look-ups',function( done ){
-			debugger;
 			server.inject({
 				url:'/api/rethink/test?company__name__istartswith=c'
 				,method:'get'
@@ -159,6 +173,6 @@ describe('RethinkResource', function( ){
 
 		});
 
+	});
 
-	})
 })
