@@ -28,13 +28,14 @@
   },
   "homepage": "https://github.com/esatterwhite/tastypie-rethink#readme",
   "dependencies": {
+    "boom": "^2.8.0",
     "debug": "^2.2.0",
     "mout": "^0.11.0",
-    "boom": "^2.8.0",
+    "async": "^1.4.0",
     "qs": "^4.0.0"
   },
   "peerDependencies": {
-    "tastypie": "<=0.5.0"
+    "tastypie": "^1.0.0"
   },
   "devDependencies": {
     "hapi": "^8.8.0",
