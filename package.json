@@ -1,6 +1,6 @@
 {
   "name": "tastypie-rethink",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "Tastypie resource for a rethinkdb backend using Thinky",
   "main": "index.js",
   "directories": {
@@ -42,7 +42,7 @@
     "joi": "^6.5.0",
     "mocha": "^2.2.5",
     "should": "^7.0.2",
-    "tastypie": "^0.4.3",
+    "tastypie": "^1.0.0",
     "thinky": "^2.0.8"
   }
 }
