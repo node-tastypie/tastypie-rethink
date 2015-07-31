@@ -97,30 +97,30 @@ You might have noticed the filtering field on the schema. One of the things that
 
 Filters are added by appending a double underscore ``__`` and the filter type to the end of a field name. Given our example, if we wanted to find people who were older than 25, we would use the following URI syntax
 
-```
+```bash
 http://localhost:3000/api/v1/user?age__gt=25
 ```
 Filters are additive for a given field. For example, if we we only wanted people where we between 25 and 45, we would just add another filter
 
-```
+```bash
 http://localhost:3000/api/v1/user?age__gt=25&age__lt=45
 ```
 
 The same double underscore `__` syntax is used to access nested fields where the filter is always the last parameter. So we could find people whos age was  **greater than** 25, **less than** 45 and whose Company Name **starts with** `W`
 
-```
+```bash
 http://localhost:3000/api/v1/user?age__gt=25&age__lt=45&company__name__istartswith=w
 ```
 
 Remember, remapped fields still work for filtering, so the same would also be true for `companyName`
 
-```
+```bash
 http://localhost:3000/api/v1/user?age__gt=25&age__lt=45&companyName__istartswith=w
 ```
 
 Resources provide a simple and expressive syntax to query for very specific subsets of data without any of the boilerplate work to set it up. And as you would expect, regular params will map back to `exact` where applicable
 
-```
+```bash
 http://localhost:3000/api/v1/user?age=44
 ```
 
@@ -132,7 +132,7 @@ Tastypie supports multiple serialization formats out of the box as well as a way
 To get back xml just change the `Accept` header
 **NOTE:** *Hapi deals with most `application/foo` formats, but is blind to `text/foo`. So the safe bet here is to use `text/xml`*
 
-```
+```xml
 // curl -H "Accept: text/xml" http://localhost:3000/api/v1/user
 
 <?xml version="1.0" encoding="UTF-8"?>
