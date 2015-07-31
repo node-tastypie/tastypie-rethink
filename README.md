@@ -1,47 +1,61 @@
-
-[ ![Codeship Status for esatterwhite/tastypie-mongo](https://codeship.com/projects/2517df60-0a1f-0133-9779-1e445c7f4e51/status?branch=master)](https://codeship.com/projects/90663)
+[ ![Codeship Status for esatterwhite/tastypie-rethink](https://codeship.com/projects/cd4d3ff0-19f6-0133-de03-1e278c59189d/status?branch=master)](https://codeship.com/projects/94295)
 
 # tastypie-rethink
 
-A Tastypie resource for mongoose.
+A Tastypie resource for Rethink.
 
-##### Install Mongoose Resource
+##### Install Rethink Resource
 
 ```js
-npm install mongoose tastypie-mongoose
+npm install thinky tastypie-rethink
 ```
 
-##### Make A mongoose Model
+##### Make A Rethink Model
 ```js
-// Make A Mongoose Model
-var Schema = new mongoose.Schema({ 
-	name:{
-		first:{type:String}
-		,last:{type:String}
-	}
-	,index:{type:Number, required:false}
-	,guid:{type:String, requierd:false}
-	,tags:[{type:String}]
-}, {collection:'tastypie'})
+// Make A Rethink Model
+var  Model = rethink.createModel('tastypie_model',{
+	index:      type.number()
+  , guid:       type.string()
+  , isActive:   type.boolean().default(false)
+  , balance:    type.string()
+  , picture:    type.string()
+  , age:        type.number()
+  , eyeColor:   type.string()
+  , date:       type.date()
+  , name:       type.string()
+  , company:    {
+  	name:type.string()
+  	,address:{
+  		city:type.string(),
+  		state:type.string(),
+  		street:type.string(),
+  		country:type.string()
+  	}
+  }
 
-var Test = connection.model('Test', Schema)
+});
+
 ```
 
 ##### Define A Resource
 ```js
 var tastypie = require("tastypie");
-var MongoseResource = tastypie.Resource.Mongoose;
-
-// Default Query
-var queryset = Test.find().lean().toConstructor()
-
-// Define A Mongo Resource
-var Mongo = MongoseResource.extend({
+var RethinkResource = require('tastypie-rethink');
+var queryset, Rethink;
+Rethink = RethinkResource.extend({
 	options:{
-		queryset: queryset
+		queryset: Model.filter({});
+		,filtering:{
+			name:1,
+			age:['lt', 'lte'],
+			company:1
+		}
 	}
 	,fields:{
-		firstName: {type:'CharField', attribute:'name.first'} // Remaps name.first to firstName
-		,lastName: {type:'CharField', attribute:'name.last'} // Remaps name.last to lastName
+		name:{type:'char', attribute:'name'},
+		age:{type:'int'},
+		eyes:{type:'char', attribute:'eyeColor'},
+		companyName:{ type:'char', attribute:'company.name' }
 	}
-})
+});
+```
