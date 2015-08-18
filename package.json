@@ -35,7 +35,7 @@
     "qs": "^4.0.0"
   },
   "peerDependencies": {
-    "tastypie": "^1.0.0"
+    "tastypie": "^2.0.0"
   },
   "devDependencies": {
     "hapi": "^8.8.0",
