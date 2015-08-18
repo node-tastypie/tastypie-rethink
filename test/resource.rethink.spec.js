@@ -77,8 +77,8 @@ describe('RethinkResource', function( ){
 		var data = require('./data/test.json');
 		
 		Model.insert(data).then(function( records ){
-			server.register([api], function(){
-				server.start( done );
+			server.register([api], function(err){
+				done(err)
 			});
 		})
 		.catch( console.error );
