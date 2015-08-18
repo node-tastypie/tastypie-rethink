@@ -11,7 +11,7 @@ var should        = require('should')
   , fields        = require('tastypie/lib/fields')
   , http          = require('tastypie/lib/http')
   , type          = rethink.type
-  , server
+  , server        = require('./server')
   ;
 
 var  Model = rethink.createModel('tastypie_model',{
@@ -69,8 +69,6 @@ var queryset, Rethink;
 
 
 describe('RethinkResource', function( ){
-	server = new hapi.Server({minimal: true})
-	server.connection({host:'localhost'})
 	var api = new Api('api/rethink')
 	api.use('test', new Rethink );
 	before(function( done ){
@@ -78,7 +76,7 @@ describe('RethinkResource', function( ){
 		
 		Model.insert(data).then(function( records ){
 			server.register([api], function(err){
-				done(err)
+				server.start( done )
 			});
 		})
 		.catch( console.error );
