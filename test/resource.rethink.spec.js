@@ -1,7 +1,7 @@
 /*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
 var should        = require('should')
   , assert        = require('assert')
-  , server        = require('./server')
+  , hapi          = require('hapi')
   , Api           = require('tastypie/lib/api')
   , Resource      = require( 'tastypie/lib/resource' )
   , RethinkResource = require( '../lib/resource' )
@@ -11,6 +11,7 @@ var should        = require('should')
   , fields        = require('tastypie/lib/fields')
   , http          = require('tastypie/lib/http')
   , type          = rethink.type
+  , server
   ;
 
 var  Model = rethink.createModel('tastypie_model',{
@@ -68,6 +69,8 @@ var queryset, Rethink;
 
 
 describe('RethinkResource', function( ){
+	server = new hapi.Server({minimal: true})
+	server.connection({host:'localhost'})
 	var api = new Api('api/rethink')
 	api.use('test', new Rethink );
 	before(function( done ){
