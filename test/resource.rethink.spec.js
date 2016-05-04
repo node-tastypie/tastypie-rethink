@@ -51,8 +51,10 @@ var queryset, Rethink;
 
 	Rethink = RethinkResource.extend({
 		options:{
-
 			queryset: queryset
+			,allow:{
+				list:{get:true, put:true, post: true }
+			}
 			,filtering:{
 				name:1,
 				age:['lt', 'lte'],
@@ -65,8 +67,15 @@ var queryset, Rethink;
 			eyes:{type:'char', attribute:'eyeColor'},
 			company:{ type:'object' }
 		}
-	});
 
+		,full_hydrate:function( bundle, done ){
+			this.parent('full_hydrate', bundle, function( err, bndl ){
+				assert.equal( err, null );
+				bundle.object.friends.should.be.a.Array()
+				done( err, bndl )
+			})
+		}
+	});
 
 describe('RethinkResource', function( ){
 	var api = new Api('api/rethink')
@@ -90,7 +99,35 @@ describe('RethinkResource', function( ){
 		});
 	});
 
+    describe('#full_hydrate', function(){
+		it('should accurately parse data', function(done){
+			var data = require('./data/test.json');
 
+			server.inject({
+				method:'post'
+				,url:'/api/rethink/test'
+				,headers:{
+					'Accept':'application/json'
+				}
+				,payload:JSON.stringify(data[0])
+			},function( response ){
+				response.statusCode.should.equal( 201 )
+				var result = JSON.parse( response.result );
+				result.friends.should.be.a.Array();
+				result.id.should.be.a.String();
+				result.tags.should.be.a.Array();
+				result.tags[0].should.be.a.String();
+				result.tags[0].should.not.be.a.Number();
+
+				Model.get( result.id )
+					.then( function( instance ){
+						instance.tags[0].should.be.a.String()	
+						instance.tags[0].should.not.be.a.Number();
+						done();
+					})
+			});
+		})
+	})
 	describe('limiting', function(){
 	
 		it('should respect the limit param', function( done ){
