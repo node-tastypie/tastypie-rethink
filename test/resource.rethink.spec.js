@@ -65,10 +65,12 @@ var queryset, Rethink;
 			name:{type:'char', attribute:'name'},
 			age:{type:'int'},
 			eyes:{type:'char', attribute:'eyeColor'},
-			company:{ type:'object' }
+			company:{ type:'object' },
+			tags: {type:'array'}
 		}
 
 		,full_hydrate:function( bundle, done ){
+			debugger;
 			this.parent('full_hydrate', bundle, function( err, bndl ){
 				assert.equal( err, null );
 				bundle.object.friends.should.be.a.Array()
@@ -118,7 +120,6 @@ describe('RethinkResource', function( ){
 				result.tags.should.be.a.Array();
 				result.tags[0].should.be.a.String();
 				result.tags[0].should.not.be.a.Number();
-
 				Model.get( result.id )
 					.then( function( instance ){
 						instance.tags[0].should.be.a.String()	
