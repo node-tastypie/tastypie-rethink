@@ -5,45 +5,13 @@ var should        = require('should')
   , Api           = require('tastypie/lib/api')
   , Resource      = require( 'tastypie/lib/resource' )
   , RethinkResource = require( '../lib/resource' )
-  , rethink       = require( 'thinky' )({db:'tastypie'})
   , fs            = require('fs')
+  , Model         = require('./data/model')
   , path          = require('path')
   , fields        = require('tastypie/lib/fields')
   , http          = require('tastypie/lib/http')
-  , type          = rethink.type
   , server
   ;
-
-var  Model = rethink.createModel('tastypie_model',{
-	index:      type.number()
-  , guid:       type.string()
-  , isActive:   type.boolean().default(false)
-  , balance:    type.string()
-  , picture:    type.string()
-  , age:        type.number()
-  , eyeColor:   type.string()
-  , date:       type.date()
-  , name:       type.string()
-  , company:    {
-  	name:type.string()
-  	,address:{
-  		city:type.string(),
-  		state:type.string(),
-  		street:type.string(),
-  		country:type.string()
-  	}
-  }
-  , email:      type.string()
-  , phone:      type.string()
-  , address:    type.string()
-  , about:      type.string()
-  , registered: type.string()
-  , latitude:   type.number()
-  , longitude:  type.number()
-  , tags:       [type.string()]
-  , range:      [type.number()]
-  , friends:    [{name:type.string(), id:type.number() }]
-});
 
 
 var queryset, Rethink;
@@ -70,7 +38,6 @@ var queryset, Rethink;
 		}
 
 		,full_hydrate:function( bundle, done ){
-			debugger;
 			this.parent('full_hydrate', bundle, function( err, bndl ){
 				assert.equal( err, null );
 				bundle.object.friends.should.be.a.Array()
@@ -114,7 +81,8 @@ describe('RethinkResource', function( ){
 				method:'post'
 				,url:'/api/rethink/test'
 				,headers:{
-					'Accept':'application/json'
+					'Accept':'application/json',
+					'Content-Type':'application/json'
 				}
 				,payload:JSON.stringify(data[0])
 			},function( response ){
@@ -175,7 +143,7 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
-				assert.equal(response.statusCode, 200, "resource should only allow filtering on specified fields")
+				response.statusCode.should.equal(200)
 				var content = JSON.parse( response.result )
 				content.data.length.should.be.greaterThan( 0 );
 				content.data.length.should.be.lessThan( 101 );
