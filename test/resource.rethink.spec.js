@@ -11,6 +11,7 @@ var should        = require('should')
   , fields        = require('tastypie/lib/fields')
   , http          = require('tastypie/lib/http')
   , type          = rethink.type
+  , server
   ;
 
 var  Model = rethink.createModel('tastypie_model',{
@@ -50,8 +51,10 @@ var queryset, Rethink;
 
 	Rethink = RethinkResource.extend({
 		options:{
-
 			queryset: queryset
+			,allow:{
+				list:{get:true, put:true, post: true }
+			}
 			,filtering:{
 				name:1,
 				age:['lt', 'lte'],
@@ -62,14 +65,25 @@ var queryset, Rethink;
 			name:{type:'char', attribute:'name'},
 			age:{type:'int'},
 			eyes:{type:'char', attribute:'eyeColor'},
-			company:{ type:'object' }
+			company:{ type:'object' },
+			tags: {type:'array'}
+		}
+
+		,full_hydrate:function( bundle, done ){
+			debugger;
+			this.parent('full_hydrate', bundle, function( err, bndl ){
+				assert.equal( err, null );
+				bundle.object.friends.should.be.a.Array()
+				done( err, bndl )
+			})
 		}
 	});
-
 
 describe('RethinkResource', function( ){
 	var server;
 	var api = new Api('api/rethink')
+	var server = new hapi.Server({minimal:true});
+	server.connection({host:'localhost'})
 	api.use('test', new Rethink );
 	before(function( done ){
 		server = new hapi.Server()
@@ -79,8 +93,8 @@ describe('RethinkResource', function( ){
 		
 
 		Model.insert(data).then(function( records ){
-			server.register([api], function(){
-				server.start( done );
+			server.register([api], function(err){
+				done(err);
 			});
 		})
 		.catch( done );
@@ -92,7 +106,34 @@ describe('RethinkResource', function( ){
 		});
 	});
 
+    describe('#full_hydrate', function(){
+		it('should accurately parse data', function(done){
+			var data = require('./data/test.json');
 
+			server.inject({
+				method:'post'
+				,url:'/api/rethink/test'
+				,headers:{
+					'Accept':'application/json'
+				}
+				,payload:JSON.stringify(data[0])
+			},function( response ){
+				response.statusCode.should.equal( 201 )
+				var result = JSON.parse( response.result );
+				result.friends.should.be.a.Array();
+				result.id.should.be.a.String();
+				result.tags.should.be.a.Array();
+				result.tags[0].should.be.a.String();
+				result.tags[0].should.not.be.a.Number();
+				Model.get( result.id )
+					.then( function( instance ){
+						instance.tags[0].should.be.a.String()	
+						instance.tags[0].should.not.be.a.Number();
+						done();
+					})
+			});
+		})
+	})
 	describe('limiting', function(){
 	
 		it('should respect the limit param', function( done ){

@@ -24,6 +24,7 @@ env.MOCHA_COLORS=1
 mocha = child_process.spawn("mocha", [
 	"--growl"
 	, "--recursive"
+	, "--timeout=20000"
 	, util.format("--reporter=%s", production ? 'xunit':'spec')
 	, 'test/*.spec.js'
 ],{env: env});

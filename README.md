@@ -13,7 +13,7 @@ npm install thinky tastypie-rethink
 ##### Make A Rethink Model
 ```js
 // Make A Rethink Model
-var  Model = rethink.createModel('tastypie_model',{
+var  Model = thinky.createModel('tastypie_model',{
 	index:      type.number()
   , guid:       type.string()
   , isActive:   type.boolean().default(false)
