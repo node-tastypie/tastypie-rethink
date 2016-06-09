@@ -28,11 +28,12 @@
   },
   "homepage": "https://github.com/esatterwhite/tastypie-rethink#readme",
   "dependencies": {
+    "async": "^1.4.0",
     "boom": "^2.8.0",
     "debug": "^2.2.0",
     "mout": "^0.11.0",
-    "async": "^1.4.0",
-    "qs": "^4.0.0"
+    "qs": "^4.0.0",
+    "thinky": "^2.3.0"
   },
   "peerDependencies": {
     "tastypie": "^1.0.0"
@@ -40,8 +41,8 @@
   "devDependencies": {
     "hapi": "^8.8.0",
     "joi": "^6.5.0",
-    "mocha": "^2.2.5",
-    "should": "^7.0.2",
+    "mocha": "^2.5.3",
+    "should": "^9.0.1",
     "tastypie": "^1.0.0",
     "thinky": "^2.0.8"
   }

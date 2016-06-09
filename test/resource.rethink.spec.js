@@ -1,7 +1,7 @@
 /*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
 var should        = require('should')
   , assert        = require('assert')
-  , server        = require('./server')
+  , hapi          = require('hapi')
   , Api           = require('tastypie/lib/api')
   , Resource      = require( 'tastypie/lib/resource' )
   , RethinkResource = require( '../lib/resource' )
@@ -68,17 +68,22 @@ var queryset, Rethink;
 
 
 describe('RethinkResource', function( ){
+	var server;
 	var api = new Api('api/rethink')
 	api.use('test', new Rethink );
 	before(function( done ){
+		server = new hapi.Server()
+		server.connection({host:'localhost'});
+
 		var data = require('./data/test.json');
 		
+
 		Model.insert(data).then(function( records ){
 			server.register([api], function(){
 				server.start( done );
 			});
 		})
-		.catch( console.error );
+		.catch( done );
 	});
 
 	after(function( done ){
