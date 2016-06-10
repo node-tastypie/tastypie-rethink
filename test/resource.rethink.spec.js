@@ -5,6 +5,7 @@ var should        = require('should')
   , Api           = require('tastypie/lib/api')
   , Resource      = require( 'tastypie/lib/resource' )
   , RethinkResource = require( '../lib/resource' )
+  , clone = require('mout/lang/clone')
   , fs            = require('fs')
   , Model         = require('./data/model')
   , path          = require('path')
@@ -34,15 +35,8 @@ var queryset, Rethink;
 			age:{type:'int'},
 			eyes:{type:'char', attribute:'eyeColor'},
 			company:{ type:'object' },
-			tags: {type:'array'}
-		}
-
-		,full_hydrate:function( bundle, done ){
-			this.parent('full_hydrate', bundle, function( err, bndl ){
-				assert.equal( err, null );
-				bundle.object.friends.should.be.a.Array()
-				done( err, bndl )
-			})
+			tags: {type:'array'},
+			registered:{type:'datetime'}
 		}
 	});
 
@@ -56,10 +50,7 @@ describe('RethinkResource', function( ){
 		server = new hapi.Server()
 		server.connection({host:'localhost'});
 
-		var data = require('./data/test.json');
-		
-
-		Model.insert(data).then(function( records ){
+		Model.save( require('./data/test.json').slice() ).then(function( records ){
 			server.register([api], function(err){
 				done(err);
 			});
@@ -76,7 +67,6 @@ describe('RethinkResource', function( ){
     describe('#full_hydrate', function(){
 		it('should accurately parse data', function(done){
 			var data = require('./data/test.json');
-
 			server.inject({
 				method:'post'
 				,url:'/api/rethink/test'
