@@ -35,7 +35,6 @@ module.exports = rethink.createModel('tastypie_model',{
 
 module.exports.pre('save', function( done ){
   this.id = undefined;
-  this.registered = new Date( this.registered );
   done();
 })
 module.exports.r = rethink.r

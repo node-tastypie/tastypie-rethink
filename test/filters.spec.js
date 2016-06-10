@@ -7,12 +7,14 @@ var assert      = require('assert')
   , util        = require('util')
   , filters     = require('../lib/resource/filters')
   , hapi          = require('hapi')
+  , clone      = require('mout/lang/clone')
   , Api           = require('tastypie/lib/api')
   , RethinkResource = require( '../lib/resource' )
   , fs            = require('fs')
   , Model         = require('./data/model')
   , path          = require('path')
   , http          = require('tastypie/lib/http')
+  , typeOf        = require('mout/lang/kindOf')
   , server
   ;
 
@@ -53,8 +55,7 @@ var queryset, Rethink;
 describe('rethink', function(){
 
 	before(function( done ){
-		var data = require('./data/test.json');
-		Model.insert(data).then(function( records ){
+		Model.save( require('./data/test.json').slice() ).then(function( records ){
 			done();
 		})
 	});
@@ -209,14 +210,14 @@ describe('rethink', function(){
 
 		describe('contains', function(){
 			it('should match values any where in a string in a case sensitive manner', function( done ){
-				Model.filter( filters.contains(Model.r, 'name', 'ly' ) )
+				Model.filter( filters.contains(Model.r, 'name', 'ie' ) )
 					.limit(10)
 					.then( function( data ){
 						data.length.should.be.above( 0 );
 
 						data.forEach(function( d ){
-							d.name.should.match( /ly/g );
-							d.name.should.not.match( /LY/g );
+							d.name.should.match( /ie/g );
+							d.name.should.not.match( /IE/g );
 						});
 						done();
 
@@ -246,14 +247,14 @@ describe('rethink', function(){
 
 		describe('startswith', function(){
 			it('should match values at the beginning of a string in a case sensitive manner', function( done ){
-				Model.filter( filters.startswith(Model.r, 'gender', 'fem' ) )
+				Model.filter( filters.startswith(Model.r, 'eyeColor', 'gre' ) )
 					.limit(10)
 					.then( function( data ){
 						data.length.should.be.above( 0 );
 
 						data.forEach(function( d ){
-							d.gender.should.match(/^fem/);
-							d.gender.should.not.match(/^Fem/);
+							d.eyeColor.should.match(/^gre/);
+							d.eyeColor.should.not.match(/^Gre/);
 						});
 						done();
 
@@ -261,13 +262,13 @@ describe('rethink', function(){
 					.catch( done )
 			});
 			it('should not match values at the end of a string in a case sensitive manner', function( done ){
-				Model.filter( filters.startswith(Model.r, 'gender', 'fem' ) )
+				Model.filter( filters.startswith(Model.r, 'eyeColor', 'gre' ) )
 					.limit(10)
 					.then( function( data ){
 						data.length.should.be.above( 0 );
 
 						data.forEach(function( d ){
-							d.gender.should.not.match(/fem$/);
+							d.eyeColor.should.not.match(/gre$/);
 						});
 						done();
 
@@ -278,13 +279,13 @@ describe('rethink', function(){
 
 		describe('istartswith', function(){
 			it('should match values that startwith a string in a case sensitive manner', function( done ){
-				Model.filter( filters.istartswith(Model.r, 'gender', 'FEM' ) )
+				Model.filter( filters.istartswith(Model.r, 'eyeColor', 'GRE' ) )
 					.limit(10)
 					.then( function( data ){
 						data.length.should.be.above( 0 );
 
 						data.forEach(function( d ){
-							d.gender.should.match(/^fem/);
+							d.eyeColor.should.match(/^gre/);
 						});
 						done();
 
@@ -294,14 +295,14 @@ describe('rethink', function(){
 		});
 		describe('endswith', function(){
 			it('should match values that endswith a string in a case sensitive manner', function( done ){
-				Model.filter( filters.endswith(Model.r, 'name', 'Zimmerman' ) )
+				Model.filter( filters.endswith(Model.r, 'name', 'Mathews' ) )
 					.limit(10)
 					.then( function( data ){
 						data.length.should.be.above( 0 );
 
 						data.forEach(function( d ){
-							d.name.should.match(/Zimmerman$/);
-							d.name.should.not.match(/zimmerman$/);
+							d.name.should.match(/Mathews$/);
+							d.name.should.not.match(/mathews$/);
 						});
 						done();
 
@@ -311,35 +312,36 @@ describe('rethink', function(){
 		});
 		describe('iendswith', function(){
 			it('should match values that endswith a string in a case insensitive manner', function( done ){
-				Model.filter( filters.iendswith(Model.r, 'name', 'ZIMMERMAN' ) )
+				Model.filter( filters.iendswith(Model.r, 'name', 'MATHEWS' ) )
 					.limit(10)
 					.then( function( data ){
 						data.length.should.be.above( 0 );
 
 						data.forEach(function( d ){
-							d.name.should.match(/Zimmerman$/i);
+							d.name.should.match(/mathews$/i);
 						});
 						done();
 
 					})
 					.catch( done )
 			});
-
 		});
 		describe('range', function(){
-			it.skip('should should match dates between a given date range',function(done){
+			it('should should match dates between a given date range',function(done){
 				
-				Model.filter( filters.range(Model.r, 'registered', ['2015-08-01', '2015-09-01']) )
+				Model.filter( filters.range(Model.r, 'registered', ['2015-08-01', '2015-10-01']) )
 					.limit(10)
 					.then( function( data ){
 						var start, end;
 						data.length.should.be.above( 0 );
+
+                        // JS dates are 0 index. Rethink is 1
 						start = new Date(2015, 7, 1)
-						end = new Date(2015, 8, 1)
+						end = new Date(2015, 9, 1)
 
 						data.forEach(function( d ){
-							d.registered.should.be.below( end )
-							d.registered.should.be.above( start )
+                            assert.ok( d.registered < end, `expected ${d.registered} to be less than ${end}` );
+                            assert.ok( d.registered > start, `expected ${d.registered} to be greater than ${start}` )
 						});
 						done();
 
