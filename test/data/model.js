@@ -24,7 +24,7 @@ module.exports = rethink.createModel('tastypie_model',{
   , phone:      type.string()
   , address:    type.string()
   , about:      type.string()
-  , registered: type.string()
+  , registered: type.date()
   , latitude:   type.number()
   , longitude:  type.number()
   , tags:       [type.string()]
@@ -32,4 +32,10 @@ module.exports = rethink.createModel('tastypie_model',{
   , friends:    [{name:type.string(), id:type.number() }]
 });
 
+
+module.exports.pre('save', function( done ){
+  this.id = undefined;
+  this.registered = new Date( this.registered );
+  done();
+})
 module.exports.r = rethink.r
