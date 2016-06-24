@@ -3,7 +3,6 @@
 # tastypie-rethink
 
 A Tastypie resource for Rethink.
-Looking for active contributors / collaborators to help shape the way people build APIs!
 
 ##### Install Rethink Resource
 
