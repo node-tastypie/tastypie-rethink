@@ -1,20 +1,28 @@
 /*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
-var should        = require('should')
-  , assert        = require('assert')
-  , hapi          = require('hapi')
-  , Api           = require('tastypie/lib/api')
-  , Resource      = require( 'tastypie/lib/resource' )
+var should          = require('should')
+  , reqlite         = require('reqlite')
+  , assert          = require('assert')
+  , hapi            = require('hapi')
+  , Api             = require('tastypie/lib/api')
+  , Resource        = require( 'tastypie/lib/resource' )
   , RethinkResource = require( '../lib/resource' )
-  , clone = require('mout/lang/clone')
-  , fs            = require('fs')
-  , Model         = require('./data/model')
-  , path          = require('path')
-  , fields        = require('tastypie/lib/fields')
-  , http          = require('tastypie/lib/http')
+  , clone           = require('mout/lang/clone')
+  , fs              = require('fs')
+  , path            = require('path')
+  , fields          = require('tastypie/lib/fields')
+  , http            = require('tastypie/lib/http')
   , server
+  , Model
+  , connection
   ;
 
+try{
+	connection    = new reqlite({debug:!!process.env.REQL_DEBUG})
+} catch( e ){
+	console.log('reqlite connection failed')
+}
 
+Model         = require('./data/model')
 var queryset, Rethink;
 	queryset = Model.filter({});
 
