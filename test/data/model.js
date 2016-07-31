@@ -1,7 +1,16 @@
 var rethink       = require( 'thinky' )({db:'tastypie'})
   , type          = rethink.type
+  , User
+  , Tag
 
-module.exports = rethink.createModel('tastypie_model',{
+
+Tag = rethink.createModel('tastypie_tag',{
+  user_id:type.string()
+},{
+  pk:'name'
+})
+
+User =  rethink.createModel('tastypie_user',{
 	index:      type.number()
   , guid:       type.string()
   , isActive:   type.boolean().default(false)
@@ -27,14 +36,20 @@ module.exports = rethink.createModel('tastypie_model',{
   , registered: type.date()
   , latitude:   type.number()
   , longitude:  type.number()
-  , tags:       [type.string()]
   , range:      [type.number()]
   , friends:    [{name:type.string(), id:type.number() }]
 });
 
 
-module.exports.pre('save', function( done ){
+User.pre('save', function( done ){
   this.id = undefined;
   done();
 })
-module.exports.r = rethink.r
+
+
+User.r = rethink.r
+
+User.hasMany(Tag, 'tags', 'id', 'user_id');
+
+module.exports = User;
+module.exports.Tag = Tag
