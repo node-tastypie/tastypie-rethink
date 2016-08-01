@@ -178,32 +178,28 @@ describe('rethink', function(){
 		});
 		describe('isnull', function(){
 			describe('is true', function(){
-				it.skip('should only return values where then value is null', function(done){
-					Movement.collection().query(function( qb ){
-						qb = filters.isnull(qb, 'issue', true );
-						qb = qb.limit(10)
-						  .then( function( data ){
-						  	data.forEach( function( d ){
-						  		should.equal(d.issue, null);
-						  	});
-						  	done();
-						  });
-					});
+				it('should only return values where then value is null', function(done){
+					Model.filter( filters.isnull( Model.r, 'email', true))
+						.then(function( data ){
+							data.length.should.be.above(0)
+							data.forEach( function( d ){
+								assert.strictEqual(d.email,null)
+							})
+							done();
+						})
 				});
 			});
 
 			describe('is false', function(){
-				it.skip('should only return value that are not null', function( done ){
-					Movement.collection().query(function( qb ){
-						qb = filters.isnull(qb, 'issue', false );
-						qb = qb.limit(10)
-						  .then( function( data ){
-						  	data.forEach( function( d ){
-						  		should.equal( d.issue );
-						  	});
-						  	done();
-						  });
-					});
+				it('should only return value that are not null', function( done ){
+					Model.filter( filters.isnull( Model.r, 'email', false))
+						.then(function( data ){
+							data.length.should.be.above(0)
+							data.forEach( function( d ){
+								d.email.should.not.be.Null();
+							})
+							done();
+						})
 				});
 			});
 		});
@@ -349,8 +345,28 @@ describe('rethink', function(){
 					.catch( done )
 			});
 
-			it.skip('should reject an invalid date range', function(done){
-				var start, end;
+			it('should reject an invalid date range', function(done){
+				assert.throws(function(){
+					Model.filter( filters.range(Model.r, 'registered', ['2015-08-01', '2015-7-01']) )
+						.limit(10)
+						.then( function( data ){
+							var start, end;
+							data.length.should.be.above( 0 );
+
+	                        // JS dates are 0 index. Rethink is 1
+							start = new Date(2015, 7, 1)
+							end = new Date(2015, 9 , 1)
+
+							data.forEach(function( d ){
+	                            assert.ok( d.registered < end, `expected ${d.registered} to be less than ${end}` );
+	                            assert.ok( d.registered > start, `expected ${d.registered} to be greater than ${start}` )
+							});
+							done();
+
+						})
+						.catch( done )
+				})
+
 				done()
 			});
 		});
