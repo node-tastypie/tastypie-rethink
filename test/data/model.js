@@ -10,6 +10,19 @@ Tag = rethink.createModel('tastypie_tag',{
   pk:'name'
 })
 
+
+var Company = rethink.createModel('tastypie_company',{
+    name: type.string(),
+    user_id: type.string(),
+    address:{
+        state: type.string(),
+        city: type.string(),
+        street: type.string(),
+        country: type.string()
+    }
+})
+
+
 User =  rethink.createModel('tastypie_user',{
 	index:      type.number()
   , guid:       type.string()
@@ -20,7 +33,8 @@ User =  rethink.createModel('tastypie_user',{
   , eyeColor:   type.string()
   , date:       type.date()
   , name:       type.string()
-  , company:    {
+ /*
+    , company:    {
   	name:type.string()
   	,address:{
   		city:type.string(),
@@ -29,6 +43,7 @@ User =  rethink.createModel('tastypie_user',{
   		country:type.string()
   	}
   }
+*/
   , email:      type.string()
   , phone:      type.string()
   , address:    type.string()
@@ -41,15 +56,13 @@ User =  rethink.createModel('tastypie_user',{
 });
 
 
-User.pre('save', function( done ){
-  this.id = undefined;
-  done();
-})
 
 
 User.r = rethink.r
 
+User.hasOne( Company, 'company','id','user_id')
 User.hasMany(Tag, 'tags', 'id', 'user_id');
 
 module.exports = User;
 module.exports.Tag = Tag
+module.exports.Company = Company

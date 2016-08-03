@@ -8,15 +8,6 @@
     "age": 25,
     "eyeColor": "green",
     "name": "Terrie Mathews",
-    "company": {
-      "name": "QUORDATE",
-      "address": {
-        "city": "Levant",
-        "state": "American Samoa",
-        "street": "Utica Avenue",
-        "country": "Suriname"
-      }
-    },
     "email": "terriemathews@quordate.ca",
     "phone": "+1 (938) 470-2433",
     "address": "560 Wythe Place, Sylvanite, Georgia, 7852",
@@ -62,15 +53,6 @@
     "age": 37,
     "eyeColor": "blue",
     "name": "Jimenez Walters",
-    "company": {
-      "name": "SENMAO",
-      "address": {
-        "city": "Venice",
-        "state": "Alabama",
-        "street": "Ridgewood Place",
-        "country": "Seychelles"
-      }
-    },
     "email": "jimenezwalters@senmao.me",
     "phone": "+1 (932) 579-3179",
     "address": "647 Moore Street, Jacksonburg, Arkansas, 2437",
@@ -116,15 +98,6 @@
     "age": 36,
     "eyeColor": "brown",
     "name": "Bryant Alford",
-    "company": {
-      "name": "TRIPSCH",
-      "address": {
-        "city": "Coyote",
-        "state": "Nebraska",
-        "street": "Madison Street",
-        "country": "Tunisia"
-      }
-    },
     "email": "bryantalford@tripsch.com",
     "phone": "+1 (881) 595-2907",
     "address": "733 Matthews Court, Grapeview, Ohio, 6205",
@@ -170,15 +143,6 @@
     "age": 31,
     "eyeColor": "green",
     "name": "Amber Mejia",
-    "company": {
-      "name": "TUBESYS",
-      "address": {
-        "city": "Sedley",
-        "state": "Iowa",
-        "street": "Mill Road",
-        "country": "Bahamas"
-      }
-    },
     "email": "ambermejia@tubesys.io",
     "phone": "+1 (876) 554-2065",
     "address": "847 Story Court, Adelino, Illinois, 5884",
@@ -224,15 +188,6 @@
     "age": 34,
     "eyeColor": "hazel",
     "name": "Meghan Donovan",
-    "company": {
-      "name": "FLUM",
-      "address": {
-        "city": "Sutton",
-        "state": "West Virginia",
-        "street": "Falmouth Street",
-        "country": "Austria"
-      }
-    },
     "email": "meghandonovan@flum.biz",
     "phone": "+1 (856) 572-2654",
     "address": "550 Denton Place, Deseret, Virgin Islands, 6035",
@@ -278,15 +233,6 @@
     "age": 20,
     "eyeColor": "green",
     "name": "Park Harper",
-    "company": {
-      "name": "OTHERWAY",
-      "address": {
-        "city": "Wyano",
-        "state": "Kentucky",
-        "street": "Radde Place",
-        "country": "Sudan"
-      }
-    },
     "email": "parkharper@otherway.net",
     "phone": "+1 (889) 566-3670",
     "address": "612 Hendrickson Place, Elwood, Oregon, 4830",
@@ -332,15 +278,6 @@
     "age": 35,
     "eyeColor": "hazel",
     "name": "Mattie Whitney",
-    "company": {
-      "name": "METROZ",
-      "address": {
-        "city": "Albrightsville",
-        "state": "Delaware",
-        "street": "Blake Court",
-        "country": "Dominican Republic"
-      }
-    },
     "email": "mattiewhitney@metroz.tv",
     "phone": "+1 (963) 433-3156",
     "address": "108 Halsey Street, Keller, New Hampshire, 8407",
@@ -386,15 +323,6 @@
     "age": 32,
     "eyeColor": "brown",
     "name": "Virginia Velez",
-    "company": {
-      "name": "UPDAT",
-      "address": {
-        "city": "Ernstville",
-        "state": "Rhode Island",
-        "street": "Laurel Avenue",
-        "country": "South Africa"
-      }
-    },
     "email": "virginiavelez@updat.us",
     "phone": "+1 (929) 413-3239",
     "address": "297 Lott Street, Urie, Mississippi, 3685",
@@ -440,15 +368,6 @@
     "age": 38,
     "eyeColor": "grey",
     "name": "Wilda Marshall",
-    "company": {
-      "name": "BOVIS",
-      "address": {
-        "city": "Hartsville/Hartley",
-        "state": "Indiana",
-        "street": "Jay Street",
-        "country": "Iceland"
-      }
-    },
     "email": "wildamarshall@bovis.org",
     "phone": "+1 (940) 575-2633",
     "address": "248 Carroll Street, Mansfield, Louisiana, 8964",
@@ -494,15 +413,6 @@
     "age": 23,
     "eyeColor": "green",
     "name": "Aguirre Chandler",
-    "company": {
-      "name": "QOT",
-      "address": {
-        "city": "Centerville",
-        "state": "Maine",
-        "street": "Sackett Street",
-        "country": "American Samoa"
-      }
-    },
     "email": "aguirrechandler@qot.biz",
     "phone": "+1 (981) 584-3633",
     "address": "710 Coles Street, Dunnavant, Guam, 5874",
@@ -548,15 +458,6 @@
     "age": 31,
     "eyeColor": "grey",
     "name": "Adrienne Chen",
-    "company": {
-      "name": "APPLIDEC",
-      "address": {
-        "city": "Troy",
-        "state": "Puerto Rico",
-        "street": "Montague Street",
-        "country": "British Indian Ocean Territory"
-      }
-    },
     "email": "adriennechen@applidec.name",
     "phone": "+1 (915) 437-3045",
     "address": "246 Pine Street, Olney, Connecticut, 3371",
@@ -602,15 +503,6 @@
     "age": 26,
     "eyeColor": "green",
     "name": "Fletcher Olsen",
-    "company": {
-      "name": "RODEMCO",
-      "address": {
-        "city": "Sanford",
-        "state": "Michigan",
-        "street": "Wortman Avenue",
-        "country": "Australia"
-      }
-    },
     "email": "fletcherolsen@rodemco.co.uk",
     "phone": "+1 (868) 410-3389",
     "address": "947 Fanchon Place, Dale, North Dakota, 478",
@@ -656,15 +548,6 @@
     "age": 35,
     "eyeColor": "blue",
     "name": "Karina Pearson",
-    "company": {
-      "name": "UTARIAN",
-      "address": {
-        "city": "Crenshaw",
-        "state": "Nevada",
-        "street": "Green Street",
-        "country": "Guam"
-      }
-    },
     "email": "karinapearson@utarian.ca",
     "phone": "+1 (856) 590-3448",
     "address": "242 Seabring Street, Bonanza, Utah, 7710",
@@ -710,15 +593,6 @@
     "age": 26,
     "eyeColor": "grey",
     "name": "Sanchez Mcleod",
-    "company": {
-      "name": "ACCUPRINT",
-      "address": {
-        "city": "Indio",
-        "state": "Texas",
-        "street": "Cameron Court",
-        "country": "Moldova"
-      }
-    },
     "email": "sanchezmcleod@accuprint.me",
     "phone": "+1 (851) 593-2883",
     "address": "635 Freeman Street, Fowlerville, Marshall Islands, 6137",
@@ -764,15 +638,6 @@
     "age": 32,
     "eyeColor": "blue",
     "name": "Olivia Odom",
-    "company": {
-      "name": "ICOLOGY",
-      "address": {
-        "city": "Succasunna",
-        "state": "California",
-        "street": "Pioneer Street",
-        "country": "Bhutan"
-      }
-    },
     "email": "oliviaodom@icology.com",
     "phone": "+1 (808) 515-3868",
     "address": "720 Holmes Lane, Irwin, Colorado, 3940",
@@ -818,15 +683,6 @@
     "age": 34,
     "eyeColor": "green",
     "name": "Gwen Bentley",
-    "company": {
-      "name": "ZENTIA",
-      "address": {
-        "city": "Townsend",
-        "state": "New Jersey",
-        "street": "Powell Street",
-        "country": "Norfolk Island"
-      }
-    },
     "email": "gwenbentley@zentia.io",
     "phone": "+1 (942) 593-2969",
     "address": "578 Ludlam Place, Berwind, Hawaii, 220",
@@ -872,15 +728,6 @@
     "age": 32,
     "eyeColor": "grey",
     "name": "Christy Austin",
-    "company": {
-      "name": "UNQ",
-      "address": {
-        "city": "Lowgap",
-        "state": "Alaska",
-        "street": "Elliott Place",
-        "country": "Anguilla"
-      }
-    },
     "email": "christyaustin@unq.biz",
     "phone": "+1 (952) 545-2718",
     "address": "432 Vine Street, Klagetoh, District Of Columbia, 224",
@@ -926,15 +773,6 @@
     "age": 27,
     "eyeColor": "blue",
     "name": "Hobbs Ochoa",
-    "company": {
-      "name": "QUARMONY",
-      "address": {
-        "city": "Chapin",
-        "state": "Arizona",
-        "street": "Rochester Avenue",
-        "country": "Cyprus"
-      }
-    },
     "email": "hobbsochoa@quarmony.net",
     "phone": "+1 (808) 459-3099",
     "address": "473 Dooley Street, Tioga, Federated States Of Micronesia, 8471",
@@ -980,15 +818,6 @@
     "age": 37,
     "eyeColor": "brown",
     "name": "Lorie Pollard",
-    "company": {
-      "name": "APEX",
-      "address": {
-        "city": "Eastmont",
-        "state": "Palau",
-        "street": "Kingston Avenue",
-        "country": "Estonia"
-      }
-    },
     "email": "loriepollard@apex.tv",
     "phone": "+1 (990) 468-2820",
     "address": "347 Gerritsen Avenue, Stockdale, Wyoming, 7160",
@@ -1034,15 +863,6 @@
     "age": 23,
     "eyeColor": "hazel",
     "name": "Whitaker Case",
-    "company": {
-      "name": "SPHERIX",
-      "address": {
-        "city": "Oneida",
-        "state": "Wisconsin",
-        "street": "Milton Street",
-        "country": "Qatar"
-      }
-    },
     "email": "whitakercase@spherix.us",
     "phone": "+1 (942) 458-2722",
     "address": "753 Lincoln Avenue, Camino, New York, 3345",
@@ -1088,15 +908,6 @@
     "age": 37,
     "eyeColor": "grey",
     "name": "Madge Boyd",
-    "company": {
-      "name": "IDEGO",
-      "address": {
-        "city": "Madaket",
-        "state": "Maryland",
-        "street": "Narrows Avenue",
-        "country": "Andorra"
-      }
-    },
     "email": "madgeboyd@idego.org",
     "phone": "+1 (922) 446-3727",
     "address": "423 Whitwell Place, Manitou, New Mexico, 9745",
@@ -1142,15 +953,6 @@
     "age": 37,
     "eyeColor": "blue",
     "name": "Donovan Murray",
-    "company": {
-      "name": "BALUBA",
-      "address": {
-        "city": "Caroleen",
-        "state": "Virginia",
-        "street": "Sunnyside Court",
-        "country": "Cocos (Keeling Islands)"
-      }
-    },
     "email": "donovanmurray@baluba.biz",
     "phone": "+1 (942) 571-3622",
     "address": "528 Hazel Court, Chamizal, Washington, 6118",
@@ -1196,15 +998,6 @@
     "age": 37,
     "eyeColor": "grey",
     "name": "Clara Best",
-    "company": {
-      "name": "XYQAG",
-      "address": {
-        "city": "Frizzleburg",
-        "state": "North Carolina",
-        "street": "Clarendon Road",
-        "country": "Croatia (Hrvatska)"
-      }
-    },
     "email": "clarabest@xyqag.name",
     "phone": "+1 (889) 573-2192",
     "address": "804 Concord Street, Allensworth, Idaho, 6085",
@@ -1250,15 +1043,6 @@
     "age": 23,
     "eyeColor": "hazel",
     "name": "Melva Hunter",
-    "company": {
-      "name": "HALAP",
-      "address": {
-        "city": "Chautauqua",
-        "state": "Kansas",
-        "street": "Eaton Court",
-        "country": "Singapore"
-      }
-    },
     "email": "melvahunter@halap.co.uk",
     "phone": "+1 (803) 403-3325",
     "address": "228 Vanderveer Place, Riviera, Pennsylvania, 6629",
@@ -1304,15 +1088,6 @@
     "age": 22,
     "eyeColor": "blue",
     "name": "Branch Thomas",
-    "company": {
-      "name": "ZEDALIS",
-      "address": {
-        "city": "Escondida",
-        "state": "Northern Mariana Islands",
-        "street": "Indiana Place",
-        "country": "Niger"
-      }
-    },
     "email": "branchthomas@zedalis.ca",
     "phone": "+1 (969) 568-2861",
     "address": "782 Garnet Street, Stonybrook, Oklahoma, 3160",
@@ -1358,15 +1133,6 @@
     "age": 26,
     "eyeColor": "hazel",
     "name": "Byrd Brennan",
-    "company": {
-      "name": "VELOS",
-      "address": {
-        "city": "Clayville",
-        "state": "Tennessee",
-        "street": "Noll Street",
-        "country": "Sierra Leone"
-      }
-    },
     "email": "byrdbrennan@velos.me",
     "phone": "+1 (850) 540-3459",
     "address": "813 Lamont Court, Leeper, Vermont, 3106",
@@ -1412,15 +1178,6 @@
     "age": 20,
     "eyeColor": "brown",
     "name": "Melissa Sparks",
-    "company": {
-      "name": "VINCH",
-      "address": {
-        "city": "Coalmont",
-        "state": "South Carolina",
-        "street": "Harwood Place",
-        "country": "Somalia"
-      }
-    },
     "email": "melissasparks@vinch.com",
     "phone": "+1 (942) 539-3487",
     "address": "144 Quincy Street, Bourg, Montana, 4678",
@@ -1466,15 +1223,6 @@
     "age": 26,
     "eyeColor": "grey",
     "name": "Shirley Bond",
-    "company": {
-      "name": "KOOGLE",
-      "address": {
-        "city": "Ruffin",
-        "state": "Florida",
-        "street": "Bayview Place",
-        "country": "Belgium"
-      }
-    },
     "email": "shirleybond@koogle.io",
     "phone": "+1 (980) 405-2705",
     "address": "664 Bergen Street, Hiwasse, South Dakota, 2940",
@@ -1520,15 +1268,6 @@
     "age": 26,
     "eyeColor": "blue",
     "name": "Lacy Clarke",
-    "company": {
-      "name": "BARKARAMA",
-      "address": {
-        "city": "Wilsonia",
-        "state": "Missouri",
-        "street": "Lenox Road",
-        "country": "Samoa"
-      }
-    },
     "email": "lacyclarke@barkarama.biz",
     "phone": "+1 (926) 431-3861",
     "address": "732 Troutman Street, Waverly, Massachusetts, 6775",
@@ -1574,15 +1313,6 @@
     "age": 35,
     "eyeColor": "brown",
     "name": "Hutchinson Porter",
-    "company": {
-      "name": "GEOFORM",
-      "address": {
-        "city": "Genoa",
-        "state": "American Samoa",
-        "street": "Oceanview Avenue",
-        "country": "Armenia"
-      }
-    },
     "email": "hutchinsonporter@geoform.net",
     "phone": "+1 (810) 552-3270",
     "address": "519 Ivan Court, Grazierville, Georgia, 1578",
@@ -1628,15 +1358,6 @@
     "age": 21,
     "eyeColor": "blue",
     "name": "Chavez Moody",
-    "company": {
-      "name": "GAZAK",
-      "address": {
-        "city": "Kraemer",
-        "state": "Alabama",
-        "street": "Dobbin Street",
-        "country": "Poland"
-      }
-    },
     "email": "chavezmoody@gazak.tv",
     "phone": "+1 (831) 462-3774",
     "address": "483 Love Lane, Enetai, Arkansas, 6480",
@@ -1682,15 +1403,6 @@
     "age": 32,
     "eyeColor": "hazel",
     "name": "Knapp Cantu",
-    "company": {
-      "name": "IMMUNICS",
-      "address": {
-        "city": "Veguita",
-        "state": "Nebraska",
-        "street": "Meeker Avenue",
-        "country": "Djibouti"
-      }
-    },
     "email": "knappcantu@immunics.us",
     "phone": "+1 (872) 451-2084",
     "address": "325 Division Place, Craig, Ohio, 2400",
@@ -1736,15 +1448,6 @@
     "age": 31,
     "eyeColor": "green",
     "name": "Kim Fletcher",
-    "company": {
-      "name": "VIAGREAT",
-      "address": {
-        "city": "Knowlton",
-        "state": "Iowa",
-        "street": "Hendrickson Street",
-        "country": "Bangladesh"
-      }
-    },
     "email": "kimfletcher@viagreat.org",
     "phone": "+1 (889) 511-2642",
     "address": "146 Hawthorne Street, Mayfair, Illinois, 624",
@@ -1790,15 +1493,6 @@
     "age": 30,
     "eyeColor": "hazel",
     "name": "Katie Horton",
-    "company": {
-      "name": "ZIGGLES",
-      "address": {
-        "city": "Ada",
-        "state": "West Virginia",
-        "street": "Guernsey Street",
-        "country": "Ecuador"
-      }
-    },
     "email": "katiehorton@ziggles.biz",
     "phone": "+1 (991) 486-3351",
     "address": "730 Albemarle Road, Heil, Virgin Islands, 6968",
@@ -1844,15 +1538,6 @@
     "age": 26,
     "eyeColor": "brown",
     "name": "Monique Wyatt",
-    "company": {
-      "name": "MEDIOT",
-      "address": {
-        "city": "Brooktrails",
-        "state": "Kentucky",
-        "street": "Stryker Court",
-        "country": "Mayotte"
-      }
-    },
     "email": "moniquewyatt@mediot.name",
     "phone": "+1 (898) 483-2043",
     "address": "806 Roder Avenue, Norvelt, Oregon, 2410",
@@ -1898,15 +1583,6 @@
     "age": 33,
     "eyeColor": "hazel",
     "name": "Joni Gibbs",
-    "company": {
-      "name": "UBERLUX",
-      "address": {
-        "city": "Graniteville",
-        "state": "Delaware",
-        "street": "Doone Court",
-        "country": "Viet Nam"
-      }
-    },
     "email": "jonigibbs@uberlux.co.uk",
     "phone": "+1 (852) 422-3716",
     "address": "159 Woodside Avenue, Chamberino, New Hampshire, 6361",
@@ -1952,15 +1628,6 @@
     "age": 32,
     "eyeColor": "grey",
     "name": "Janis Alvarado",
-    "company": {
-      "name": "KIOSK",
-      "address": {
-        "city": "Marne",
-        "state": "Rhode Island",
-        "street": "Boardwalk ",
-        "country": "Bahrain"
-      }
-    },
     "email": "janisalvarado@kiosk.ca",
     "phone": "+1 (860) 430-3191",
     "address": "817 Hampton Place, Maury, Mississippi, 780",
@@ -2006,15 +1673,6 @@
     "age": 31,
     "eyeColor": "green",
     "name": "Janette Atkins",
-    "company": {
-      "name": "OVIUM",
-      "address": {
-        "city": "Gracey",
-        "state": "Indiana",
-        "street": "Jackson Place",
-        "country": "Nicaragua"
-      }
-    },
     "email": null,
     "phone": "+1 (920) 588-3687",
     "address": "472 Voorhies Avenue, Convent, Louisiana, 628",
@@ -2060,15 +1718,6 @@
     "age": 21,
     "eyeColor": "green",
     "name": "Hardy Pruitt",
-    "company": {
-      "name": "CORECOM",
-      "address": {
-        "city": "Thomasville",
-        "state": "Maine",
-        "street": "Mersereau Court",
-        "country": "Mozambique"
-      }
-    },
     "email": "hardypruitt@corecom.com",
     "phone": "+1 (906) 556-2296",
     "address": "636 Lawrence Avenue, Waiohinu, Guam, 261",
@@ -2114,15 +1763,6 @@
     "age": 27,
     "eyeColor": "brown",
     "name": "Carson Wagner",
-    "company": {
-      "name": "COSMETEX",
-      "address": {
-        "city": "Guilford",
-        "state": "Puerto Rico",
-        "street": "Lefferts Avenue",
-        "country": "Argentina"
-      }
-    },
     "email": "carsonwagner@cosmetex.io",
     "phone": "+1 (985) 493-2599",
     "address": "116 Lawn Court, Benson, Connecticut, 2376",
@@ -2168,15 +1808,6 @@
     "age": 26,
     "eyeColor": "brown",
     "name": "Scott Carter",
-    "company": {
-      "name": "IMAGINART",
-      "address": {
-        "city": "Harborton",
-        "state": "Michigan",
-        "street": "Hicks Street",
-        "country": "Jamaica"
-      }
-    },
     "email": "scottcarter@imaginart.biz",
     "phone": "+1 (811) 450-2526",
     "address": "492 Tabor Court, Gila, North Dakota, 8896",
@@ -2222,15 +1853,6 @@
     "age": 24,
     "eyeColor": "blue",
     "name": "Guy Glenn",
-    "company": {
-      "name": "GEEKWAGON",
-      "address": {
-        "city": "Byrnedale",
-        "state": "Nevada",
-        "street": "Strauss Street",
-        "country": "Korea (North)"
-      }
-    },
     "email": "guyglenn@geekwagon.net",
     "phone": "+1 (952) 583-2990",
     "address": "932 Dahill Road, Slovan, Utah, 1509",
@@ -2276,15 +1898,6 @@
     "age": 38,
     "eyeColor": "grey",
     "name": "Finley Mayer",
-    "company": {
-      "name": "TEMORAK",
-      "address": {
-        "city": "Ilchester",
-        "state": "Texas",
-        "street": "Herkimer Street",
-        "country": "US Minor Outlying Islands"
-      }
-    },
     "email": "finleymayer@temorak.tv",
     "phone": "+1 (963) 471-2939",
     "address": "661 Onderdonk Avenue, Dyckesville, Marshall Islands, 4742",
@@ -2330,15 +1943,6 @@
     "age": 26,
     "eyeColor": "green",
     "name": "Angelia Delaney",
-    "company": {
-      "name": "QUONK",
-      "address": {
-        "city": "Nash",
-        "state": "California",
-        "street": "Engert Avenue",
-        "country": "Burundi"
-      }
-    },
     "email": "angeliadelaney@quonk.us",
     "phone": "+1 (856) 499-3301",
     "address": "295 Flatbush Avenue, Ronco, Colorado, 1800",
@@ -2384,15 +1988,6 @@
     "age": 22,
     "eyeColor": "grey",
     "name": "Stacey Moore",
-    "company": {
-      "name": "XIIX",
-      "address": {
-        "city": "Taft",
-        "state": "New Jersey",
-        "street": "Beayer Place",
-        "country": "Swaziland"
-      }
-    },
     "email": "staceymoore@xiix.org",
     "phone": "+1 (941) 427-3114",
     "address": "612 Manor Court, Chaparrito, Hawaii, 348",
@@ -2438,15 +2033,6 @@
     "age": 25,
     "eyeColor": "brown",
     "name": "Silva Stone",
-    "company": {
-      "name": "PROSELY",
-      "address": {
-        "city": "Limestone",
-        "state": "Alaska",
-        "street": "Henry Street",
-        "country": "Kyrgyzstan"
-      }
-    },
     "email": "silvastone@prosely.biz",
     "phone": "+1 (890) 557-2056",
     "address": "198 Hunts Lane, Odessa, District Of Columbia, 3160",
@@ -2492,15 +2078,6 @@
     "age": 27,
     "eyeColor": "green",
     "name": "Angelique Shepard",
-    "company": {
-      "name": "BUZZOPIA",
-      "address": {
-        "city": "Brandermill",
-        "state": "Arizona",
-        "street": "Bay Street",
-        "country": "Pakistan"
-      }
-    },
     "email": "angeliqueshepard@buzzopia.name",
     "phone": "+1 (873) 493-2015",
     "address": "691 Dwight Street, Lloyd, Federated States Of Micronesia, 2320",
@@ -2546,15 +2123,6 @@
     "age": 27,
     "eyeColor": "blue",
     "name": "Horne Frank",
-    "company": {
-      "name": "VANTAGE",
-      "address": {
-        "city": "Lund",
-        "state": "Palau",
-        "street": "Bennet Court",
-        "country": "Barbados"
-      }
-    },
     "email": "hornefrank@vantage.co.uk",
     "phone": "+1 (810) 461-3696",
     "address": "999 Lloyd Court, Shrewsbury, Wyoming, 8066",
@@ -2600,15 +2168,6 @@
     "age": 37,
     "eyeColor": "green",
     "name": "Minerva Drake",
-    "company": {
-      "name": "GEEKNET",
-      "address": {
-        "city": "Matthews",
-        "state": "Wisconsin",
-        "street": "Lake Place",
-        "country": "Benin"
-      }
-    },
     "email": "minervadrake@geeknet.ca",
     "phone": "+1 (978) 523-2440",
     "address": "976 Gain Court, Kent, New York, 2984",
@@ -2654,15 +2213,6 @@
     "age": 39,
     "eyeColor": "green",
     "name": "Connie Noel",
-    "company": {
-      "name": "UNI",
-      "address": {
-        "city": "Gulf",
-        "state": "Maryland",
-        "street": "Agate Court",
-        "country": "Saint Kitts and Nevis"
-      }
-    },
     "email": "connienoel@uni.me",
     "phone": "+1 (986) 549-2386",
     "address": "162 Vernon Avenue, Maplewood, New Mexico, 9442",
@@ -2708,15 +2258,6 @@
     "age": 30,
     "eyeColor": "blue",
     "name": "Hunt Kirby",
-    "company": {
-      "name": "ASSURITY",
-      "address": {
-        "city": "Waukeenah",
-        "state": "Virginia",
-        "street": "Cumberland Street",
-        "country": "Tonga"
-      }
-    },
     "email": "huntkirby@assurity.com",
     "phone": "+1 (999) 474-3571",
     "address": "414 Sutter Avenue, Bellamy, Washington, 4357",
@@ -2762,15 +2303,6 @@
     "age": 31,
     "eyeColor": "green",
     "name": "Nielsen Christensen",
-    "company": {
-      "name": "OBONES",
-      "address": {
-        "city": "Newcastle",
-        "state": "North Carolina",
-        "street": "Calder Place",
-        "country": "Belarus"
-      }
-    },
     "email": "nielsenchristensen@obones.io",
     "phone": "+1 (978) 530-2623",
     "address": "623 Tilden Avenue, Emison, Idaho, 7872",
@@ -2816,15 +2348,6 @@
     "age": 26,
     "eyeColor": "brown",
     "name": "Estella Brown",
-    "company": {
-      "name": "CINCYR",
-      "address": {
-        "city": "Haring",
-        "state": "Kansas",
-        "street": "Johnson Street",
-        "country": "Senegal"
-      }
-    },
     "email": "estellabrown@cincyr.biz",
     "phone": "+1 (896) 446-2073",
     "address": "274 Windsor Place, Westwood, Pennsylvania, 2257",
@@ -2870,15 +2393,6 @@
     "age": 22,
     "eyeColor": "green",
     "name": "Sonia Finch",
-    "company": {
-      "name": "DANCERITY",
-      "address": {
-        "city": "Mahtowa",
-        "state": "Northern Mariana Islands",
-        "street": "Haring Street",
-        "country": "Jordan"
-      }
-    },
     "email": "soniafinch@dancerity.net",
     "phone": "+1 (906) 469-3822",
     "address": "286 Liberty Avenue, Hickory, Oklahoma, 3322",
@@ -2924,15 +2438,6 @@
     "age": 33,
     "eyeColor": "green",
     "name": "Alvarez Bolton",
-    "company": {
-      "name": "VOIPA",
-      "address": {
-        "city": "Southmont",
-        "state": "Tennessee",
-        "street": "Bainbridge Street",
-        "country": "Saudi Arabia"
-      }
-    },
     "email": "alvarezbolton@voipa.tv",
     "phone": "+1 (953) 473-2673",
     "address": "397 Ide Court, Bendon, Vermont, 8809",
@@ -2978,15 +2483,6 @@
     "age": 26,
     "eyeColor": "grey",
     "name": "Cunningham Dodson",
-    "company": {
-      "name": "ASSITIA",
-      "address": {
-        "city": "Ventress",
-        "state": "South Carolina",
-        "street": "Village Road",
-        "country": "Malaysia"
-      }
-    },
     "email": "cunninghamdodson@assitia.us",
     "phone": "+1 (804) 588-2268",
     "address": "860 Friel Place, Websterville, Montana, 6622",
@@ -3032,15 +2528,6 @@
     "age": 27,
     "eyeColor": "brown",
     "name": "Meyers Huber",
-    "company": {
-      "name": "CORPORANA",
-      "address": {
-        "city": "Bartley",
-        "state": "Florida",
-        "street": "Matthews Place",
-        "country": "New Caledonia"
-      }
-    },
     "email": "meyershuber@corporana.org",
     "phone": "+1 (938) 427-2334",
     "address": "892 Brooklyn Avenue, Aberdeen, South Dakota, 2865",
@@ -3086,15 +2573,6 @@
     "age": 38,
     "eyeColor": "brown",
     "name": "Bennett Woodard",
-    "company": {
-      "name": "CODACT",
-      "address": {
-        "city": "Makena",
-        "state": "Missouri",
-        "street": "River Street",
-        "country": "Mauritius"
-      }
-    },
     "email": "bennettwoodard@codact.biz",
     "phone": "+1 (811) 465-2616",
     "address": "148 Harman Street, Belmont, Massachusetts, 7974",
@@ -3140,15 +2618,6 @@
     "age": 30,
     "eyeColor": "blue",
     "name": "Hill Sexton",
-    "company": {
-      "name": "FUTURITY",
-      "address": {
-        "city": "Sandston",
-        "state": "American Samoa",
-        "street": "Osborn Street",
-        "country": "Albania"
-      }
-    },
     "email": "hillsexton@futurity.name",
     "phone": "+1 (981) 547-3974",
     "address": "812 Cropsey Avenue, Interlochen, Georgia, 8883",
@@ -3194,15 +2663,6 @@
     "age": 37,
     "eyeColor": "green",
     "name": "Zamora Hooper",
-    "company": {
-      "name": "QUANTASIS",
-      "address": {
-        "city": "Madrid",
-        "state": "Alabama",
-        "street": "Quay Street",
-        "country": "France"
-      }
-    },
     "email": "zamorahooper@quantasis.co.uk",
     "phone": "+1 (813) 477-3006",
     "address": "227 Crown Street, Norris, Arkansas, 7435",
@@ -3248,15 +2708,6 @@
     "age": 29,
     "eyeColor": "grey",
     "name": "Elisabeth Mcclure",
-    "company": {
-      "name": "ANIMALIA",
-      "address": {
-        "city": "Harrodsburg",
-        "state": "Nebraska",
-        "street": "Ridge Court",
-        "country": "Cook Islands"
-      }
-    },
     "email": "elisabethmcclure@animalia.ca",
     "phone": "+1 (878) 408-3079",
     "address": "491 Baycliff Terrace, Rose, Ohio, 4534",
@@ -3302,15 +2753,6 @@
     "age": 35,
     "eyeColor": "green",
     "name": "Helene Schmidt",
-    "company": {
-      "name": "LEXICONDO",
-      "address": {
-        "city": "Rosine",
-        "state": "Iowa",
-        "street": "Willoughby Street",
-        "country": "Cameroon"
-      }
-    },
     "email": "heleneschmidt@lexicondo.me",
     "phone": "+1 (894) 569-3168",
     "address": "399 Albemarle Terrace, Blue, Illinois, 7746",
@@ -3356,15 +2798,6 @@
     "age": 25,
     "eyeColor": "green",
     "name": "Desiree King",
-    "company": {
-      "name": "IDEALIS",
-      "address": {
-        "city": "Riceville",
-        "state": "West Virginia",
-        "street": "Bragg Court",
-        "country": "Congo"
-      }
-    },
     "email": "desireeking@idealis.com",
     "phone": "+1 (988) 411-3584",
     "address": "207 Senator Street, Cawood, Virgin Islands, 2368",
@@ -3410,15 +2843,6 @@
     "age": 28,
     "eyeColor": "grey",
     "name": "Trujillo Schwartz",
-    "company": {
-      "name": "SAVVY",
-      "address": {
-        "city": "Spelter",
-        "state": "Kentucky",
-        "street": "Bank Street",
-        "country": "Greenland"
-      }
-    },
     "email": "trujilloschwartz@savvy.io",
     "phone": "+1 (890) 548-2304",
     "address": "526 Erskine Loop, Stockwell, Oregon, 2040",
@@ -3464,15 +2888,6 @@
     "age": 34,
     "eyeColor": "green",
     "name": "Steele Collier",
-    "company": {
-      "name": "BEDLAM",
-      "address": {
-        "city": "Grahamtown",
-        "state": "Delaware",
-        "street": "Church Avenue",
-        "country": "Iraq"
-      }
-    },
     "email": "steelecollier@bedlam.biz",
     "phone": "+1 (886) 476-2247",
     "address": "430 Wyckoff Avenue, Cucumber, New Hampshire, 9313",
@@ -3518,15 +2933,6 @@
     "age": 39,
     "eyeColor": "brown",
     "name": "Justine Farrell",
-    "company": {
-      "name": "OATFARM",
-      "address": {
-        "city": "Yettem",
-        "state": "Rhode Island",
-        "street": "Harbor Court",
-        "country": "Rwanda"
-      }
-    },
     "email": "justinefarrell@oatfarm.net",
     "phone": "+1 (983) 529-3675",
     "address": "111 Autumn Avenue, Kanauga, Mississippi, 2600",
@@ -3572,15 +2978,6 @@
     "age": 35,
     "eyeColor": "green",
     "name": "Buckner Quinn",
-    "company": {
-      "name": "ORBOID",
-      "address": {
-        "city": "Kenwood",
-        "state": "Indiana",
-        "street": "Monroe Place",
-        "country": "Puerto Rico"
-      }
-    },
     "email": "bucknerquinn@orboid.tv",
     "phone": "+1 (971) 534-2773",
     "address": "460 Thomas Street, Williston, Louisiana, 6317",
@@ -3626,15 +3023,6 @@
     "age": 28,
     "eyeColor": "blue",
     "name": "Eddie Charles",
-    "company": {
-      "name": "ZYTRAC",
-      "address": {
-        "city": "Ironton",
-        "state": "Maine",
-        "street": "Devon Avenue",
-        "country": "San Marino"
-      }
-    },
     "email": "eddiecharles@zytrac.us",
     "phone": "+1 (873) 586-3898",
     "address": "616 Fay Court, Connerton, Guam, 3934",
@@ -3680,15 +3068,6 @@
     "age": 35,
     "eyeColor": "brown",
     "name": "Juliana Dudley",
-    "company": {
-      "name": "RODEOCEAN",
-      "address": {
-        "city": "Swartzville",
-        "state": "Puerto Rico",
-        "street": "Bergen Court",
-        "country": "St. Helena"
-      }
-    },
     "email": "julianadudley@rodeocean.org",
     "phone": "+1 (876) 507-2885",
     "address": "300 Hart Street, Harrison, Connecticut, 6762",
@@ -3734,15 +3113,6 @@
     "age": 39,
     "eyeColor": "blue",
     "name": "Houston Mclean",
-    "company": {
-      "name": "FANGOLD",
-      "address": {
-        "city": "Crucible",
-        "state": "Michigan",
-        "street": "Lorimer Street",
-        "country": "Mauritania"
-      }
-    },
     "email": "houstonmclean@fangold.biz",
     "phone": "+1 (810) 548-2371",
     "address": "482 Pineapple Street, Darbydale, North Dakota, 5314",
@@ -3788,15 +3158,6 @@
     "age": 32,
     "eyeColor": "grey",
     "name": "Sonja Potts",
-    "company": {
-      "name": "CINASTER",
-      "address": {
-        "city": "Avoca",
-        "state": "Nevada",
-        "street": "Johnson Avenue",
-        "country": "Syria"
-      }
-    },
     "email": "sonjapotts@cinaster.name",
     "phone": "+1 (881) 539-3558",
     "address": "115 Linden Boulevard, Barclay, Utah, 2661",
@@ -3842,15 +3203,6 @@
     "age": 26,
     "eyeColor": "brown",
     "name": "Susanne Pratt",
-    "company": {
-      "name": "SEQUITUR",
-      "address": {
-        "city": "Diaperville",
-        "state": "Texas",
-        "street": "Montauk Court",
-        "country": "Portugal"
-      }
-    },
     "email": "susannepratt@sequitur.co.uk",
     "phone": "+1 (864) 598-3676",
     "address": "379 Dean Street, Belleview, Marshall Islands, 5529",
@@ -3896,15 +3248,6 @@
     "age": 35,
     "eyeColor": "grey",
     "name": "Margo Walter",
-    "company": {
-      "name": "OVOLO",
-      "address": {
-        "city": "Waikele",
-        "state": "California",
-        "street": "Arlington Avenue",
-        "country": "Angola"
-      }
-    },
     "email": "margowalter@ovolo.ca",
     "phone": "+1 (990) 554-2136",
     "address": "791 Clifton Place, Robinson, Colorado, 9639",
@@ -3950,15 +3293,6 @@
     "age": 23,
     "eyeColor": "green",
     "name": "Camille Hudson",
-    "company": {
-      "name": "COMTENT",
-      "address": {
-        "city": "Graball",
-        "state": "New Jersey",
-        "street": "Kensington Street",
-        "country": "Algeria"
-      }
-    },
     "email": "camillehudson@comtent.me",
     "phone": "+1 (833) 471-3821",
     "address": "549 Amherst Street, Calvary, Hawaii, 2997",
@@ -4004,15 +3338,6 @@
     "age": 35,
     "eyeColor": "hazel",
     "name": "Mckenzie Newton",
-    "company": {
-      "name": "UNDERTAP",
-      "address": {
-        "city": "Rodman",
-        "state": "Alaska",
-        "street": "Olive Street",
-        "country": "Georgia"
-      }
-    },
     "email": "mckenzienewton@undertap.com",
     "phone": "+1 (939) 599-3486",
     "address": "730 Ellery Street, Chemung, District Of Columbia, 5431",
@@ -4058,15 +3383,6 @@
     "age": 26,
     "eyeColor": "blue",
     "name": "Church Gillespie",
-    "company": {
-      "name": "FARMEX",
-      "address": {
-        "city": "Bridgetown",
-        "state": "Arizona",
-        "street": "Stockton Street",
-        "country": "Brunei Darussalam"
-      }
-    },
     "email": "churchgillespie@farmex.io",
     "phone": "+1 (991) 530-2237",
     "address": "400 Remsen Street, Caroline, Federated States Of Micronesia, 172",
@@ -4112,15 +3428,6 @@
     "age": 24,
     "eyeColor": "green",
     "name": "Jennie Malone",
-    "company": {
-      "name": "EXIAND",
-      "address": {
-        "city": "Bennett",
-        "state": "Palau",
-        "street": "National Drive",
-        "country": "Kazakhstan"
-      }
-    },
     "email": "jenniemalone@exiand.biz",
     "phone": "+1 (889) 513-2361",
     "address": "151 Broadway , Axis, Wyoming, 8532",
@@ -4166,15 +3473,6 @@
     "age": 39,
     "eyeColor": "blue",
     "name": "Francesca Mclaughlin",
-    "company": {
-      "name": "EARTHMARK",
-      "address": {
-        "city": "Loma",
-        "state": "Wisconsin",
-        "street": "Hewes Street",
-        "country": "Marshall Islands"
-      }
-    },
     "email": "francescamclaughlin@earthmark.net",
     "phone": "+1 (943) 430-2478",
     "address": "186 Vandervoort Avenue, Hoehne, New York, 2410",
@@ -4220,15 +3518,6 @@
     "age": 24,
     "eyeColor": "brown",
     "name": "Martinez Oliver",
-    "company": {
-      "name": "AUTOMON",
-      "address": {
-        "city": "Summerset",
-        "state": "Maryland",
-        "street": "Henderson Walk",
-        "country": "Tajikistan"
-      }
-    },
     "email": "martinezoliver@automon.tv",
     "phone": "+1 (835) 584-3883",
     "address": "761 Frost Street, Chical, New Mexico, 6720",
@@ -4274,15 +3563,6 @@
     "age": 26,
     "eyeColor": "blue",
     "name": "Dodson Weiss",
-    "company": {
-      "name": "CENTREGY",
-      "address": {
-        "city": "Draper",
-        "state": "Virginia",
-        "street": "Beverley Road",
-        "country": "Uzbekistan"
-      }
-    },
     "email": "dodsonweiss@centregy.us",
     "phone": "+1 (810) 547-3324",
     "address": "210 Hamilton Avenue, Rushford, Washington, 6343",
@@ -4328,15 +3608,6 @@
     "age": 37,
     "eyeColor": "brown",
     "name": "Underwood Espinoza",
-    "company": {
-      "name": "OLYMPIX",
-      "address": {
-        "city": "Kohatk",
-        "state": "North Carolina",
-        "street": "Everett Avenue",
-        "country": "Bulgaria"
-      }
-    },
     "email": "underwoodespinoza@olympix.org",
     "phone": "+1 (868) 589-2375",
     "address": "505 Brigham Street, Turpin, Idaho, 8376",
@@ -4382,15 +3653,6 @@
     "age": 26,
     "eyeColor": "grey",
     "name": "Mccullough Emerson",
-    "company": {
-      "name": "PREMIANT",
-      "address": {
-        "city": "Loretto",
-        "state": "Kansas",
-        "street": "Bay Avenue",
-        "country": "Indonesia"
-      }
-    },
     "email": "mcculloughemerson@premiant.biz",
     "phone": "+1 (801) 536-3419",
     "address": "843 Dictum Court, Coaldale, Pennsylvania, 3815",
@@ -4436,15 +3698,6 @@
     "age": 29,
     "eyeColor": "brown",
     "name": "Colleen Kramer",
-    "company": {
-      "name": "CEPRENE",
-      "address": {
-        "city": "Gardners",
-        "state": "Northern Mariana Islands",
-        "street": "Kingsland Avenue",
-        "country": "Israel"
-      }
-    },
     "email": "colleenkramer@ceprene.name",
     "phone": "+1 (924) 576-2066",
     "address": "155 Seigel Court, Lupton, Oklahoma, 7763",
@@ -4490,15 +3743,6 @@
     "age": 37,
     "eyeColor": "grey",
     "name": "Stacie Cervantes",
-    "company": {
-      "name": "EXOTERIC",
-      "address": {
-        "city": "Dodge",
-        "state": "Tennessee",
-        "street": "Grafton Street",
-        "country": "Madagascar"
-      }
-    },
     "email": "staciecervantes@exoteric.co.uk",
     "phone": "+1 (880) 566-3632",
     "address": "740 Schermerhorn Street, Orin, Vermont, 241",
@@ -4544,15 +3788,6 @@
     "age": 40,
     "eyeColor": "brown",
     "name": "Frazier Larson",
-    "company": {
-      "name": "COMTRAK",
-      "address": {
-        "city": "Brutus",
-        "state": "South Carolina",
-        "street": "Beaver Street",
-        "country": "Papua New Guinea"
-      }
-    },
     "email": "frazierlarson@comtrak.ca",
     "phone": "+1 (947) 469-2075",
     "address": "915 Sedgwick Place, Ribera, Montana, 8221",
@@ -4598,15 +3833,6 @@
     "age": 23,
     "eyeColor": "green",
     "name": "Zelma Craft",
-    "company": {
-      "name": "INRT",
-      "address": {
-        "city": "Richford",
-        "state": "Florida",
-        "street": "Nolans Lane",
-        "country": "Ghana"
-      }
-    },
     "email": "zelmacraft@inrt.me",
     "phone": "+1 (887) 478-3602",
     "address": "494 Degraw Street, Leola, South Dakota, 2052",
@@ -4652,15 +3878,6 @@
     "age": 26,
     "eyeColor": "grey",
     "name": "Wolf Tucker",
-    "company": {
-      "name": "INQUALA",
-      "address": {
-        "city": "Cobbtown",
-        "state": "Missouri",
-        "street": "Crooke Avenue",
-        "country": "Slovak Republic"
-      }
-    },
     "email": "wolftucker@inquala.com",
     "phone": "+1 (904) 470-3287",
     "address": "440 Grand Street, Matheny, Massachusetts, 5065",
@@ -4706,15 +3923,6 @@
     "age": 26,
     "eyeColor": "green",
     "name": "Georgina Armstrong",
-    "company": {
-      "name": "QUANTALIA",
-      "address": {
-        "city": "Hasty",
-        "state": "American Samoa",
-        "street": "Bergen Avenue",
-        "country": "Yemen"
-      }
-    },
     "email": "georginaarmstrong@quantalia.io",
     "phone": "+1 (963) 471-3025",
     "address": "207 Surf Avenue, Wikieup, Georgia, 7014",
@@ -4760,15 +3968,6 @@
     "age": 40,
     "eyeColor": "brown",
     "name": "Mccoy Cruz",
-    "company": {
-      "name": "MOREGANIC",
-      "address": {
-        "city": "Darrtown",
-        "state": "Alabama",
-        "street": "Oakland Place",
-        "country": "Switzerland"
-      }
-    },
     "email": "mccoycruz@moreganic.biz",
     "phone": "+1 (951) 568-3747",
     "address": "788 Wakeman Place, Brownsville, Arkansas, 5536",
@@ -4814,15 +4013,6 @@
     "age": 25,
     "eyeColor": "grey",
     "name": "Ora Benjamin",
-    "company": {
-      "name": "ENERFORCE",
-      "address": {
-        "city": "Bradenville",
-        "state": "Nebraska",
-        "street": "Bokee Court",
-        "country": "Liberia"
-      }
-    },
     "email": "orabenjamin@enerforce.net",
     "phone": "+1 (925) 458-2033",
     "address": "116 Alabama Avenue, Jugtown, Ohio, 8257",
@@ -4868,15 +4058,6 @@
     "age": 35,
     "eyeColor": "hazel",
     "name": "French Ryan",
-    "company": {
-      "name": "ISOTERNIA",
-      "address": {
-        "city": "Cotopaxi",
-        "state": "Iowa",
-        "street": "Times Placez",
-        "country": "Cape Verde"
-      }
-    },
     "email": "frenchryan@isoternia.tv",
     "phone": "+1 (842) 564-2132",
     "address": "183 Lombardy Street, Vincent, Illinois, 3412",
@@ -4922,15 +4103,6 @@
     "age": 37,
     "eyeColor": "grey",
     "name": "Compton Barr",
-    "company": {
-      "name": "ORBIXTAR",
-      "address": {
-        "city": "Russellville",
-        "state": "West Virginia",
-        "street": "Lewis Avenue",
-        "country": "Kuwait"
-      }
-    },
     "email": "comptonbarr@orbixtar.us",
     "phone": "+1 (811) 581-3812",
     "address": "208 Sullivan Street, Carlos, Virgin Islands, 5898",
@@ -4976,15 +4148,6 @@
     "age": 28,
     "eyeColor": "blue",
     "name": "Ware Valentine",
-    "company": {
-      "name": "WAAB",
-      "address": {
-        "city": "Wright",
-        "state": "Kentucky",
-        "street": "Kenilworth Place",
-        "country": "French Polynesia"
-      }
-    },
     "email": "warevalentine@waab.org",
     "phone": "+1 (811) 406-3049",
     "address": "621 Kermit Place, Cloverdale, Oregon, 3067",
@@ -5030,15 +4193,6 @@
     "age": 37,
     "eyeColor": "grey",
     "name": "Lucy Marks",
-    "company": {
-      "name": "FLEXIGEN",
-      "address": {
-        "city": "Comptche",
-        "state": "Delaware",
-        "street": "Juliana Place",
-        "country": "Mexico"
-      }
-    },
     "email": "lucymarks@flexigen.biz",
     "phone": "+1 (888) 509-2269",
     "address": "647 Otsego Street, Groveville, New Hampshire, 6703",
@@ -5084,15 +4238,6 @@
     "age": 34,
     "eyeColor": "blue",
     "name": "Valerie Sanford",
-    "company": {
-      "name": "KEGULAR",
-      "address": {
-        "city": "Vicksburg",
-        "state": "Rhode Island",
-        "street": "Danforth Street",
-        "country": "Malta"
-      }
-    },
     "email": "valeriesanford@kegular.name",
     "phone": "+1 (959) 566-3546",
     "address": "840 Channel Avenue, Teasdale, Mississippi, 5946",
@@ -5138,15 +4283,6 @@
     "age": 26,
     "eyeColor": "blue",
     "name": "Lacey Frye",
-    "company": {
-      "name": "KINETICA",
-      "address": {
-        "city": "Reinerton",
-        "state": "Indiana",
-        "street": "Hudson Avenue",
-        "country": "Monaco"
-      }
-    },
     "email": "laceyfrye@kinetica.co.uk",
     "phone": "+1 (802) 589-3578",
     "address": "744 Cortelyou Road, Roland, Louisiana, 2007",
