@@ -194,6 +194,7 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
+				console.log( response.result )
 				response.statusCode.should.equal(200)
 
 				var content = JSON.parse( response.result )
