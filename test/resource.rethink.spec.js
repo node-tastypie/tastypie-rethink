@@ -10,8 +10,11 @@ var should          = require('should')
   , clone           = require('mout/lang/clone')
   , fs              = require('fs')
   , path            = require('path')
+  , util            = require('util')
   , fields          = require('tastypie/lib/fields')
   , http            = require('tastypie/lib/http')
+  , toArray         = require('mout/lang/toArray')
+  , tastypie = require('tastypie')
   , server
   , Model
   , connection
@@ -24,6 +27,25 @@ try{
 }
 
 Model         = require('./data/model')
+
+const CompanyResource = RethinkResource.extend({
+	options:{
+		name:'company',
+		queryset:Model.Company.filter({})
+	}
+	,fields:{
+		name:{type:'char'}
+	}
+});
+
+const TagResource = RethinkResource.extend({
+	options:{
+		name:'tags',
+		pk:'name',
+		queryset:Model.Tag.filter({})
+	}
+});
+
 var queryset, Rethink;
 	queryset = Model.getJoin().filter({});
 
@@ -34,17 +56,17 @@ var queryset, Rethink;
 				list:{get:true, put:true, post: true }
 			}
 			,filtering:{
-				name:1,
+				name:tastypie.ALL,
 				age:['lt', 'lte'],
-				company:1
+				company:tastypie.ALL
 			}
 		}
 		,fields:{
 			name:{type:'char', attribute:'name'},
 			age:{type:'int'},
 			eyes:{type:'char', attribute:'eyeColor'},
-			company:{ type:'object' },
-			tags: {type:'array'},
+			tags: {type:'hasmany', to:TagResource, nullable: true, default: toArray },
+			company:{type:'hasone', to:CompanyResource, nullable: true, full: true},
 			registered:{type:'datetime'}
 		}
 	});
@@ -55,8 +77,11 @@ describe('RethinkResource', function( ){
 	var server = new hapi.Server({minimal:true});
 	var users = require('./data/test.json').slice()
 	var tags  = require('./data/tags').slice()
+	var companies = require('./data/company')
 
 	server.connection({host:'localhost'})
+	api.use(new TagResource)
+	api.use(new CompanyResource)
 	api.use('test', new Rethink );
 	before(function( done ){
 		server = new hapi.Server()
@@ -67,25 +92,27 @@ describe('RethinkResource', function( ){
 		Model
 			.insert( users )
 			.then(function(response){
-				tags = tags
-						.filter(function(tag){
-							let dup = !!seen[tag.name];
 
-							seen[tag.name] = true;
-							return dup;							
-						})
+				tags = tags
 						.map(function(tag){
 							tag.user_id = response.generated_keys[rand()]
 							return tag
-						}).slice(0,users.length);
-				Model.Tag
-					.insert(tags)
-					.then(function(){
+						})
+
+				companies = companies.map( function( company ){
+					company.user_id = response.generated_keys.pop()
+					return company;
+				});
+				Promise.all([
+					Model.Tag.insert( tags ),
+					Model.Company.insert( companies )
+				])
+				.then(function(){
 						server.register([api], function(err){
 							done(err);
 						});
 					})
-					.catch( done )
+				.catch( done )
 			})
 	});
 
@@ -100,6 +127,7 @@ describe('RethinkResource', function( ){
     describe('#full_hydrate', function(){
 		it.skip('should accurately parse data', function(done){
 			var data = require('./data/test.json');
+	    	delete data[0].id
 			server.inject({
 				method:'post'
 				,url:'/api/rethink/test'
@@ -111,7 +139,6 @@ describe('RethinkResource', function( ){
 			},function( response ){
 				response.statusCode.should.equal( 201 )
 				var result = JSON.parse( response.result );
-				console.log( result )
 				result.friends.should.be.a.Array();
 				result.id.should.be.a.String();
 				result.tags.should.be.a.Array();
@@ -168,6 +195,7 @@ describe('RethinkResource', function( ){
 				}
 			},function( response ){
 				response.statusCode.should.equal(200)
+
 				var content = JSON.parse( response.result )
 				content.data.length.should.be.greaterThan( 0 );
 				content.data.length.should.be.lessThan( 101 );
@@ -198,6 +226,7 @@ describe('RethinkResource', function( ){
 				}
 			},function( response ){
 				var content = JSON.parse( response.result)
+
 				assert.equal(response.statusCode, 200 );
 				content.data.length.should.be.greaterThan( 0 )
 				content.data.forEach(function(item){
