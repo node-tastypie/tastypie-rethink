@@ -15,6 +15,7 @@ var assert      = require('assert')
   , Model         = require('./data/model')
   , path          = require('path')
   , http          = require('tastypie/lib/http')
+  , tastypie      = require('tastypie')
   , typeOf        = require('mout/lang/kindOf')
   , server
   ;
@@ -30,9 +31,9 @@ var queryset, Rethink;
 				list:{get:true, put:true, post: true }
 			}
 			,filtering:{
-				name:1,
+				name:tastypie.ALL,
 				age:['lt', 'lte'],
-				company:1
+				company:tastypie.ALL
 			}
 		}
 		,fields:{

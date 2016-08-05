@@ -56,9 +56,9 @@ var queryset, Rethink;
 				list:{get:true, put:true, post: true }
 			}
 			,filtering:{
-				name:1,
+				name:tastypie.ALL,
 				age:['lt', 'lte'],
-				company:1
+				company:tastypie.ALL
 			}
 		}
 		,fields:{
@@ -119,7 +119,7 @@ describe('RethinkResource', function( ){
 	after(function( done ){
 		Promise.all([
 			Model.Tag.delete(),
-			Model.Compan.ydelete(),
+			Model.Company.delete(),
 			Model.delete()
 		]).then( function(){done()})
 		.catch(function(){done})
