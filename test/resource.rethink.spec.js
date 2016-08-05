@@ -93,6 +93,7 @@ describe('RethinkResource', function( ){
 			.insert( users )
 			.then(function(response){
 
+				console.log( response )
 				tags = tags
 						.map(function(tag){
 							tag.user_id = response.generated_keys[rand()]
