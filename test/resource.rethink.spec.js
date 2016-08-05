@@ -56,9 +56,9 @@ var queryset, Rethink;
 				list:{get:true, put:true, post: true }
 			}
 			,filtering:{
-				name:tastypie.ALL,
+				name:1,
 				age:['lt', 'lte'],
-				company:tastypie.ALL
+				company:1
 			}
 		}
 		,fields:{
@@ -119,6 +119,7 @@ describe('RethinkResource', function( ){
 	after(function( done ){
 		Promise.all([
 			Model.Tag.delete(),
+			Model.Compan.ydelete(),
 			Model.delete()
 		]).then( function(){done()})
 		.catch(function(){done})
@@ -194,7 +195,6 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
-				console.log( response.result )
 				response.statusCode.should.equal(200)
 
 				var content = JSON.parse( response.result )
