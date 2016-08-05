@@ -4,6 +4,7 @@ var assert      = require('assert')
   , should      = require('should')
   , path        = require('path')
   , os          = require('os')
+  , fs          = require('fs')
   , util        = require('util')
   , filters     = require('../lib/resource/filters')
   , hapi          = require('hapi')
@@ -55,7 +56,7 @@ var queryset, Rethink;
 describe('rethink', function(){
 
 	before(function( done ){
-		Model.save( require('./data/test.json').slice() ).then(function( records ){
+		Model.save( JSON.parse( fs.readFileSync( path.resolve(__dirname,'./data/test.json') ) ) ).then(function( records ){
 			done();
 		})
 	});
