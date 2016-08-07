@@ -5,6 +5,7 @@ var should          = require('should')
   , assert          = require('assert')
   , hapi            = require('hapi')
   , Api             = require('tastypie/lib/api')
+  , lowerCase       = require('mout/string/lowerCase')
   , Resource        = require( 'tastypie/lib/resource' )
   , RethinkResource = require( '../lib/resource' )
   , clone           = require('mout/lang/clone')
@@ -25,6 +26,7 @@ try{
 } catch( e ){
 	console.log('reqlite connection failed')
 }
+function rand(){ return Math.floor( Math.random() * (96 + 1) - 0 )}
 
 Model         = require('./data/model')
 
@@ -53,7 +55,7 @@ var queryset, Rethink;
 		options:{
 			queryset: queryset
 			,allow:{
-				list:{get:true, put:true, post: true }
+				list:{ get:true, put:true, post: true, delete: false }
 			}
 			,filtering:{
 				name:tastypie.ALL,
@@ -62,12 +64,18 @@ var queryset, Rethink;
 			}
 		}
 		,fields:{
-			name:{type:'char', attribute:'name'},
-			age:{type:'int'},
-			eyes:{type:'char', attribute:'eyeColor'},
-			tags: {type:'hasmany', to:TagResource, nullable: true, default: toArray },
-			company:{type:'hasone', to:CompanyResource, nullable: true, full: true},
-			registered:{type:'datetime'}
+			name       : { type:'char', attribute:'name'}
+		  , age        : { type:'int', required:true}
+		  , eyes       : { type:'char', attribute:'eyeColor'}
+		  , tags       : { type:'hasmany', to:TagResource, nullable: true, default: toArray }
+		  , company    : { type:'hasone', to:CompanyResource, nullable: true, full: true}
+		  , registered : { type:'datetime'}
+		  , email      : { type:'char', nullable: true}
+		  , latitude   : { type:"float"}
+		  , longitude  : { type:"float"}
+		  , range      : { type:'array'}
+		  , greeting   : { type:'char'}
+		  , fruit      : { type:'char', attribute:'favoriteFruit'}
 		}
 	});
 
@@ -87,7 +95,6 @@ describe('RethinkResource', function( ){
 		server = new hapi.Server()
 		server.connection({host:'localhost'});
 		let seen = {}
-		function rand(){ return Math.floor( Math.random() * (users.length + 1) - 0 )}
 
 		Model
 			.insert( users )
@@ -242,5 +249,159 @@ describe('RethinkResource', function( ){
 		});
 
 	});
+
+	describe('~Default Behaviors', function(){
+		var ListResource, payload, user_id;
+
+		payload = {
+			"index": 100,
+			"guid": "6951244a-bd3c-4c90-b6e0-e4213faf59d3",
+			"isActive": true,
+			"balance": "$1,276.84",
+			"picture": "http://placehold.it/32x32",
+			"age": 33,
+			"eyes": "blue",
+			"name": "Joe Schmoe",
+			"email": "joeschmoe@rodemco.co.uk",
+			"phone": "+1 (868) 410-3389",
+			"address": "123 Main Street",
+			"about": "Hello World",
+			"registered": "2015-01-27T06:00:46.422Z",
+			"latitude": "-51.074223",
+			"longitude": "41.070667",
+			"range": [
+			  0,
+			  1,
+			  2,
+			  9
+			],
+			"greeting": "Hello, undefined! You have 8 unread messages.",
+			"fruit": "banana"
+		}
+
+		describe('#POST list', function(){
+			var _data = clone( payload );
+			_data.age = undefined;
+			it('should reject partial data', function( done ){
+				server.inject({
+					url:'/api/rethink/test'
+					,method:'post'
+					,payload: _data
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+				}, function( response ){
+					assert.equal( response.statusCode, 400 )
+					done()
+				})
+			});
+
+			it('should generate a new object', function( done ){
+				server.inject({
+					url:'/api/rethink/test'
+					,method:'post'
+					,payload: payload
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+				}, function( response ){
+					assert.equal( response.statusCode, 201 );
+					var res = JSON.parse( response.result )
+					assert.ok( res.user_id );
+					user_id = res.user_id;
+					Model.get( res.user_id )
+						 .then(function( user ){
+						 	assert.equal( user.favoriteFruit, payload.fruit );
+							done();
+						 });
+				});
+			});
+		});
+
+		describe('#OPTIONS list', function(){
+
+			it('should set the allow header of allowable methods', function( done ){
+				server.inject({
+					url:'/api/rethink/test'
+					,method:'options'
+					,headers:{
+						Accept:'application/json'
+					}
+				},function( response ){
+					let allowed = response
+									.headers
+									.allow
+									.split(',')
+									.map(lowerCase);
+
+					allowed.indexOf('get').should.not.equal(-1);
+					allowed.indexOf('put').should.not.equal(-1);
+					allowed.indexOf('post').should.not.equal(-1);
+					allowed.indexOf('delete').should.not.equal(-1);
+					allowed.indexOf('options').should.not.equal(-1);
+					done();
+				});
+			});
+		});
+		describe('#OPTIONS detail', function(){
+			it('should set the allow header of allowable methods', function( done ){
+				server.inject({
+					url:'/api/rethink/test/1'
+					,method:'options'
+					,headers:{
+						Accept:'application/json',
+						'Content-Type':'application/json'
+					}
+				},function(response){
+					let allowed = response
+									.headers
+									.allow
+									.split(',')
+									.map(lowerCase)
+
+					allowed.indexOf('get').should.not.equal(-1)
+					allowed.indexOf('put').should.not.equal(-1)
+					allowed.indexOf('post').should.not.equal(-1)
+					allowed.indexOf('delete').should.not.equal(-1)
+					allowed.indexOf('options').should.not.equal(-1)
+					done();
+				})
+			})
+		});
+
+		describe('#PATCH detail', function(){
+			it('should allow partial updates with PATCH', function( done ){
+
+				let payload = {name:'abacadaba',age:50};
+
+				Model.filter(function( user ){
+					return user('age').lt(50)
+				})
+				.nth( 0 )
+				.then(function( user ){
+					server.inject({
+						url:`/api/rethink/test/${user.id}`
+						,method:'patch'
+						,headers:{
+							Accept:'application/json'
+							,'Content-Type':'application/json'
+						}
+						,payload:payload
+					},function( response ){
+						assert.equal( response.statusCode, 200 )
+						var res = JSON.parse( response.result );
+						assert.equal( res.name, payload.name )
+						done();
+					})
+				})
+			});
+		});
+		describe('#GET detail', function(){});
+		describe('#PUT detail', function(){});
+		describe('#DELETE detail', function(){});
+		describe('#DELETE list', function(){});
+	})
 
 })
