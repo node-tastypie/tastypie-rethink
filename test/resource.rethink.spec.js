@@ -1,5 +1,5 @@
 'use strict';
-/*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
+/*jshint laxcomma: true, smarttabs: true, node: true, mocha: true, esnext: true*/
 var should          = require('should')
   , reqlite         = require('reqlite')
   , assert          = require('assert')
@@ -22,13 +22,13 @@ var should          = require('should')
   ;
 
 try{
-	connection    = new reqlite({debug:!!process.env.REQL_DEBUG})
+	connection    = new reqlite({debug:!!process.env.REQL_DEBUG});
 } catch( e ){
-	console.log('reqlite connection failed')
+	console.log('reqlite connection failed');
 }
-function rand(){ return Math.floor( Math.random() * (96 + 1) - 0 )}
+function rand(){ return Math.floor( Math.random() * (96 + 1) - 0 );}
 
-Model         = require('./data/model')
+Model         = require('./data/model');
 
 const CompanyResource = RethinkResource.extend({
 	options:{
@@ -81,20 +81,20 @@ var queryset, Rethink;
 
 describe('RethinkResource', function( ){
 	var server;
-	var api = new Api('api/rethink')
+	var api = new Api('api/rethink');
 	var server = new hapi.Server({minimal:true});
-	var users = require('./data/test.json').slice()
-	var tags  = require('./data/tags').slice()
-	var companies = require('./data/company')
+	var users = require('./data/test.json').slice();
+	var tags  = require('./data/tags').slice();
+	var companies = require('./data/company');
 
-	server.connection({host:'localhost'})
-	api.use(new TagResource)
-	api.use(new CompanyResource)
+	server.connection({host:'localhost'});
+	api.use(new TagResource);
+	api.use(new CompanyResource);
 	api.use('test', new Rethink );
 	before(function( done ){
-		server = new hapi.Server()
+		server = new hapi.Server();
 		server.connection({host:'localhost'});
-		let seen = {}
+		let seen = {};
 
 		Model
 			.insert( users )
@@ -102,12 +102,12 @@ describe('RethinkResource', function( ){
 
 				tags = tags
 						.map(function(tag){
-							tag.user_id = response.generated_keys[rand()]
-							return tag
-						})
+							tag.user_id = response.generated_keys[rand()];
+							return tag;
+						});
 
 				companies = companies.map( function( company ){
-					company.user_id = response.generated_keys.pop()
+					company.user_id = response.generated_keys.pop();
 					return company;
 				});
 				Promise.all([
@@ -119,8 +119,8 @@ describe('RethinkResource', function( ){
 							done(err);
 						});
 					})
-				.catch( done )
-			})
+				.catch( done );
+			});
 	});
 
 	after(function( done ){
@@ -128,14 +128,14 @@ describe('RethinkResource', function( ){
 			Model.Tag.delete(),
 			Model.Company.delete(),
 			Model.delete()
-		]).then( function(){done()})
-		.catch(function(){done})
+		]).then( function(){done();})
+		.catch(function(){done});
 	});
 
     describe('#full_hydrate', function(){
 		it.skip('should accurately parse data', function(done){
 			var data = require('./data/test.json');
-	    	delete data[0].id
+	    	delete data[0].id;
 			server.inject({
 				method:'post'
 				,url:'/api/rethink/test'
@@ -145,7 +145,7 @@ describe('RethinkResource', function( ){
 				}
 				,payload:JSON.stringify(data[0])
 			},function( response ){
-				response.statusCode.should.equal( 201 )
+				response.statusCode.should.equal( 201 );
 				var result = JSON.parse( response.result );
 				result.friends.should.be.a.Array();
 				result.id.should.be.a.String();
@@ -154,13 +154,14 @@ describe('RethinkResource', function( ){
 				result.tags[0].should.not.be.a.Number();
 				Model.get( result.id )
 					.then( function( instance ){
-						instance.tags[0].should.be.a.String()	
+						instance.tags[0].should.be.a.String();
 						instance.tags[0].should.not.be.a.Number();
 						done();
-					})
+					});
 			});
-		})
-	})
+		});
+	});
+
 	describe('limiting', function(){
 	
 		it('should respect the limit param', function( done ){
@@ -174,7 +175,7 @@ describe('RethinkResource', function( ){
 				var data = JSON.parse( response.result );
 				data.data.length.should.equal( 10 );
 				done();
-			})
+			});
 		});
 
 		it('should no page with a limit of 0', function( done ){
@@ -188,9 +189,9 @@ describe('RethinkResource', function( ){
 				var data = JSON.parse( response.result );
 				data.data.length.should.be.greaterThan( 90 );
 				done();
-			})
+			});
 		});
-	})
+	});
 
 	describe('filtering', function( ){
 
@@ -202,14 +203,14 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
-				response.statusCode.should.equal(200)
+				response.statusCode.should.equal(200);
 
-				var content = JSON.parse( response.result )
+				var content = JSON.parse( response.result );
 				content.data.length.should.be.greaterThan( 0 );
 				content.data.length.should.be.lessThan( 101 );
 				done();
-			})
-		})
+			});
+		});
 
 		it('should return  filters', function( done ){
 			server.inject({
@@ -219,9 +220,9 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
-				assert.equal(response.statusCode, 400, "resource should only allow filtering on specified fields")
-				done()
-			})
+				assert.equal(response.statusCode, 400, "resource should only allow filtering on specified fields");
+				done();
+			});
 		});
 
 		
@@ -233,18 +234,18 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
-				var content = JSON.parse( response.result)
+				var content = JSON.parse( response.result);
 
 				assert.equal(response.statusCode, 200 );
-				content.data.length.should.be.greaterThan( 0 )
+				content.data.length.should.be.greaterThan( 0 );
 				content.data.forEach(function(item){
 					if( item.company ){
-						item.company.name.charAt(0).toLowerCase().should.equal('c')
+						item.company.name.charAt(0).toLowerCase().should.equal('c');
 					}
 				});
 				
-				done()
-			})
+				done();
+			});
 
 		});
 
@@ -277,7 +278,7 @@ describe('RethinkResource', function( ){
 			],
 			"greeting": "Hello, undefined! You have 8 unread messages.",
 			"fruit": "banana"
-		}
+		};
 
 		describe('#POST list', function(){
 			var _data = clone( payload );
@@ -292,9 +293,9 @@ describe('RethinkResource', function( ){
 						,'Content-Type':'application/json'
 					}
 				}, function( response ){
-					assert.equal( response.statusCode, 400 )
-					done()
-				})
+					assert.equal( response.statusCode, 400 );
+					done();
+				});
 			});
 
 			it('should generate a new object', function( done ){
@@ -308,7 +309,8 @@ describe('RethinkResource', function( ){
 					}
 				}, function( response ){
 					assert.equal( response.statusCode, 201 );
-					var res = JSON.parse( response.result )
+					var res = JSON.parse( response.result );
+					user_id = res.id;
 					assert.ok( res.user_id );
 					user_id = res.user_id;
 					Model.get( res.user_id )
@@ -359,16 +361,16 @@ describe('RethinkResource', function( ){
 									.headers
 									.allow
 									.split(',')
-									.map(lowerCase)
+									.map(lowerCase);
 
-					allowed.indexOf('get').should.not.equal(-1)
-					allowed.indexOf('put').should.not.equal(-1)
-					allowed.indexOf('post').should.not.equal(-1)
-					allowed.indexOf('delete').should.not.equal(-1)
-					allowed.indexOf('options').should.not.equal(-1)
+					allowed.indexOf('get').should.not.equal(-1);
+					allowed.indexOf('put').should.not.equal(-1);
+					allowed.indexOf('post').should.not.equal(-1);
+					allowed.indexOf('delete').should.not.equal(-1);
+					allowed.indexOf('options').should.not.equal(-1);
 					done();
-				})
-			})
+				});
+			});
 		});
 
 		describe('#PATCH detail', function(){
@@ -377,7 +379,7 @@ describe('RethinkResource', function( ){
 				let payload = {name:'abacadaba',age:50};
 
 				Model.filter(function( user ){
-					return user('age').lt(50)
+					return user('age').lt(50);
 				})
 				.nth( 0 )
 				.then(function( user ){
@@ -390,16 +392,82 @@ describe('RethinkResource', function( ){
 						}
 						,payload:payload
 					},function( response ){
-						assert.equal( response.statusCode, 200 )
+						assert.equal( response.statusCode, 200 );
 						var res = JSON.parse( response.result );
-						assert.equal( res.name, payload.name )
+						assert.equal( res.name, payload.name );
 						done();
-					})
-				})
+					});
+				});
 			});
 		});
-		describe('#GET detail', function(){});
-		describe('#PUT detail', function(){});
+		describe('#GET detail', function(){
+			it('should return a 404 for incorrect ids', function( done ){
+				server.inject({
+					url:'/api/rethikn/test/5'
+					,method:'get'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+				},function( response ){
+					assert.equal( response.statusCode, 404 );
+					done();
+				});
+			});
+
+			it('should return the requested object by id', function( done ){
+				server.inject({
+					url:`/api/rethink/test/${user_id}`
+					,method:'get'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+				},function( response ){
+					assert.equal( response.statusCode, 200 );
+					let res = JSON.parse(response.result);
+					assert.equal( res.id, user_id);
+					done();
+				});
+			});
+		});
+		describe('#PUT detail', function(){
+			it('should allow for full replacement with PATCH', function( done ){
+				payload.isActive = false;
+				payload.fruit = 'apple';
+
+				server.inject({
+					url:`/api/rethink/test/${user_id}`
+					,method:'put'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+					,payload: payload
+				}, function( response ){
+					var res = JSON.parse( response.result );
+					assert.equal( response.statusCode, 200 );
+					assert.equal( res.isActive, false );
+					assert.equal( res.fruit, payload.fruit );
+					done( );
+				});
+			});
+
+			it('should reject partial updates with PUT', function( done ){
+				server.inject({
+					url:`/api/rethink/test/${user_id}`
+					,method:'put'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+					,payload:{name:'joe blow'}
+				},function( response ){
+					assert.equal( response.statusCode, 400);
+					done();
+				});
+			});
+		});
 		describe('#DELETE detail', function(){});
 		describe('#DELETE list', function(){});
 	})
