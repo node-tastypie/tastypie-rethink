@@ -312,9 +312,8 @@ describe('RethinkResource', function( ){
 					assert.equal( response.statusCode, 201 );
 					var res = JSON.parse( response.result );
 					user_id = res.id;
-					assert.ok( res.user_id );
-					user_id = res.user_id;
-					Model.get( res.user_id )
+					assert.ok( res.id );
+					Model.get( user_id )
 						 .then(function( user ){
 						 	assert.equal( user.favoriteFruit, payload.fruit );
 							done();
