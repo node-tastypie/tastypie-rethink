@@ -26,6 +26,7 @@ try{
 } catch( e ){
 	console.log('reqlite connection failed');
 }
+
 function rand(){ return Math.floor( Math.random() * (96 + 1) - 0 );}
 
 Model         = require('./data/model');

@@ -4,9 +4,14 @@ var fs   = require('fs')
   , path = require('path')
   , User = require('./data/model')
   , hapi = require('hapi')
-  , tatsypie = require('tastypie')
+  , tastypie = require('tastypie')
   , Resource = require('../lib/resource')
+  , toArray = require("mout/lang/toArray")
   ;
+
+function rand( max ){
+	return Math.floor( Math.random() * (max || 96 + 1) - 0 );
+}
 
 const CompanyResource = Resource.extend({
 	options:{
@@ -54,67 +59,118 @@ describe('Related Resource', function( ){
 	server.connection({host:'localhost'});
 
 	before(function(done){
-		server = new Ha
-		var users = fs.readFileSync( path.resolve( __dirname, '..', 'data', 'test.json' ) )
-		var companies = fs.readFileSync( path.resolve( __dirname, '..', 'data', 'company.json' ) )
-		var tags = fs.readFileSync( path.resolve( __dirname, '..', 'data', 'tags.json' ) )
+		var users = fs.readFileSync( path.resolve( __dirname, 'data', 'test.json' ) );
+		var companies = fs.readFileSync( path.resolve( __dirname, 'data', 'company.json' ) );
+		var tags = fs.readFileSync( path.resolve( __dirname, 'data', 'tags.json' ) );
 
-		User
-			.insert( JSON.parse(users) )
-			.then(function(response){
-
-				tags = JSON.parse( tags )
-						.map(function(tag){
-							tag.user_id = response.generated_keys[rand()];
-							return tag;
-						});
-
-				companies = JSON.parse( companies ).map( function( company ){
-					company.user_id = response.generated_keys.pop();
-					return company;
-				});
-
-				Promise.all([
-					User.Tag.insert( tags ),
-					User.Company.insert( companies )
-				])
-				.then(function(){
-						server.register([api], function(err){
-							done(err);
-						});
-					})
-				.catch( done );
-			});
-	});
-
-	after(function(done){
 		Promise.all([
 			User.Tag.delete(),
 			User.Company.delete(),
 			User.delete()
 		])
 		.then( function(){
-			done();
+			User
+				.insert( JSON.parse(users) )
+				.then(function(response){
+
+					tags = JSON.parse( tags )
+							.map(function(tag){
+								tag.user_id = response.generated_keys[rand()];
+								return tag;
+							});
+
+					companies = JSON.parse( companies ).map( function( company ){
+						company.user_id = response.generated_keys.pop();
+						return company;
+					});
+
+					Promise.all([
+						User.Tag.insert( tags ),
+						User.Company.insert( companies )
+					])
+					.then( () => done() )
+					.catch( done );
+				});
 		})
 		.catch(function(){done});
 	});
 
+	after(function(done){
+		done()
+	});
+
 	describe('relations', function(){
 
-		before(function(){
-			let api = new tastypie.Api('api/v1')
-
-			server.register([api],done)
+		before(function( done ){
+			let api = new tastypie.Api('api/v1');
+			api.use('user', new UserResource());
+			api.use('company', new CompanyResource());
+			api.use('tag', new TagResource());
+			server.register( [ api ], done );
 		});
 
 
 		describe('Has One', function(){
-			it('should create a relation via URI', function(){})
-			it('should create a relation via new object', function(){})
-			it('should create a relation via existing object', function(){})
-		});
-		describe('Has Many', function(){
+			let company;
 
+			beforeEach(function( done ){
+				server.inject({
+					method:'get'
+					,url:'/api/v1/company'
+					,query:{
+						limit:1
+					}
+					,headers:{
+						Accept:'application/json'
+					}
+				},function( response ){
+					let result = JSON.parse( response.result )
+					company = result.data[rand( result.data.length )];
+					done();
+				});
+			});
+
+			it('should create a relation via URI', function(done){
+				let payload = {
+					company: company.uri
+				  , name       : "Joe Blow"
+				  , age        : 32
+				  , eyes       : "brown"
+				  , tags       : null
+				  , registered : new Date()
+				  , email      : "joeblow@gmail.com"
+				  , latitude   : 1.0
+				  , longitude  : 1.0
+				  , range      : [ 2, 3 ]
+				  , greeting   : "I'm Joe Blow"
+				  , fruit      : "grape"
+				};
+
+				server.inject({
+					method:'post'
+					,url:'/api/v1/user'
+					,payload:payload
+					,headers:{
+						'Content-Type':'application/json'
+						,Accept:'application/json'
+					}
+				}, function( response ){
+					User.Company.get( company.id )
+						.then( ( c )=>{
+							console.log( c )
+						})
+						.finally( done )
+				});
+			});
+
+			it('should create a relation via new object', function(){});
+			it('should create a relation via existing object', function(){});
+		});
+
+		describe('Has Many', function(){
+			it('should create a relation via URI', function(){});
+			it('should create a relation via new object', function(){});
+			it('should create a relation via existing object', function(){});
 		});
 	});
 	
