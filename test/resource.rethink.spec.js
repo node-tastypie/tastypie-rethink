@@ -68,7 +68,7 @@ var queryset, Rethink;
 			name       : { type:'char', attribute:'name'}
 		  , age        : { type:'int', required:true}
 		  , eyes       : { type:'char', attribute:'eyeColor'}
-		  , tags       : { type:'hasmany', to:TagResource, nullable: true, default: toArray }
+		  , tags       : { type:'hasmany', to:TagResource, nullable: true, default: function(){ return [] } }
 		  , company    : { type:'hasone', to:CompanyResource, nullable: true, full: true}
 		  , registered : { type:'datetime'}
 		  , email      : { type:'char', nullable: true}
@@ -118,6 +118,9 @@ describe('RethinkResource', function( ){
 						return company;
 					});
 					Promise.all([
+						Model.update(function( user ){
+							return { registered: Model.r.ISO8601(user('registered') ) }; 
+						}),
 						Model.Tag.insert( tags ),
 						Model.Company.insert( companies )
 					])
@@ -133,9 +136,10 @@ describe('RethinkResource', function( ){
 	});
 
     describe('#full_hydrate', function(){
-		it.skip('should accurately parse data', function(done){
+		it('should accurately parse data', function(done){
 			var data = require('./data/test.json');
 	    	delete data[0].id;
+		
 			server.inject({
 				method:'post'
 				,url:'/api/rethink/test'
@@ -143,28 +147,21 @@ describe('RethinkResource', function( ){
 					'Accept':'application/json',
 					'Content-Type':'application/json'
 				}
-				,payload:JSON.stringify(data[0])
+				,payload:data[0]
 			},function( response ){
 				response.statusCode.should.equal( 201 );
 				var result = JSON.parse( response.result );
-				result.friends.should.be.a.Array();
 				result.id.should.be.a.String();
 				result.tags.should.be.a.Array();
-				result.tags[0].should.be.a.String();
-				result.tags[0].should.not.be.a.Number();
-				Model.get( result.id )
-					.then( function( instance ){
-						instance.tags[0].should.be.a.String();
-						instance.tags[0].should.not.be.a.Number();
-						done();
-					});
+				result.tags.should.be.a.Array();
+				done()
 			});
 		});
 	});
 
 	describe('limiting', function(){
 	
-		it.skip('should respect the limit param', function( done ){
+		it('should respect the limit param', function( done ){
 			server.inject({
 				url:'/api/rethink/test?limit=10'
 				,method:'get'
@@ -178,7 +175,7 @@ describe('RethinkResource', function( ){
 			});
 		});
 
-		it.skip('should no page with a limit of 0', function( done ){
+		it('should no page with a limit of 0', function( done ){
 			server.inject({
 				url:'/api/rethink/test?limit=0'
 				,method:'get'
@@ -195,7 +192,7 @@ describe('RethinkResource', function( ){
 
 	describe('filtering', function( ){
 
-		it.skip('should respect filtering definition', function( done ){
+		it('should respect filtering definition', function( done ){
 			server.inject({
 				url:'/api/rethink/test?name__istartswith=c&age__lt=100'
 				,method:'get'
@@ -212,7 +209,7 @@ describe('RethinkResource', function( ){
 			});
 		});
 
-		it.skip('should return  filters', function( done ){
+		it('should return  filters', function( done ){
 			server.inject({
 				url:'/api/rethink/test?name__istartswith=c&age__gt=100'
 				,method:'get'
@@ -226,7 +223,7 @@ describe('RethinkResource', function( ){
 		});
 
 		
-		it.skip('should allow for nested look-ups',function( done ){
+		it('should allow for nested look-ups',function( done ){
 			server.inject({
 				url:'/api/rethink/test?company__name__istartswith=c'
 				,method:'get'
@@ -315,7 +312,6 @@ describe('RethinkResource', function( ){
 					Model.get( user_id )
 						 .then(function( user ){
 						 	assert.equal( user.favoriteFruit, payload.fruit );
-						 	console.log('post', user_id)
 							done();
 						 });
 				});
@@ -324,7 +320,7 @@ describe('RethinkResource', function( ){
 
 		describe('#OPTIONS list', function(){
 
-			it.skip('should set the allow header of allowable methods', function( done ){
+			it('should set the allow header of allowable methods', function( done ){
 				server.inject({
 					url:'/api/rethink/test'
 					,method:'options'
@@ -335,7 +331,7 @@ describe('RethinkResource', function( ){
 					let allowed = response
 									.headers
 									.allow
-									.split.skip(',')
+									.split(',')
 									.map(lowerCase);
 
 					allowed.indexOf('get').should.not.equal(-1);
@@ -348,7 +344,7 @@ describe('RethinkResource', function( ){
 			});
 		});
 		describe('#OPTIONS detail', function(){
-			it.skip('should set the allow header of allowable methods', function( done ){
+			it('should set the allow header of allowable methods', function( done ){
 				server.inject({
 					url:'/api/rethink/test/1'
 					,method:'options'
@@ -360,7 +356,7 @@ describe('RethinkResource', function( ){
 					let allowed = response
 									.headers
 									.allow
-									.split.skip(',')
+									.split(',')
 									.map(lowerCase);
 
 					allowed.indexOf('get').should.not.equal(-1);
@@ -374,7 +370,7 @@ describe('RethinkResource', function( ){
 		});
 
 		describe('#PATCH detail', function(){
-			it.skip('should allow partial updates with PATCH', function( done ){
+			it('should allow partial updates with PATCH', function( done ){
 
 				let payload = {name:'abacadaba',age:50};
 
@@ -401,7 +397,7 @@ describe('RethinkResource', function( ){
 			});
 		});
 		describe('#GET detail', function(){
-			it.skip('should return a 404 for incorrect ids', function( done ){
+			it('should return a 404 for incorrect ids', function( done ){
 				server.inject({
 					url:'/api/rethikn/test/5'
 					,method:'get'
@@ -415,7 +411,7 @@ describe('RethinkResource', function( ){
 				});
 			});
 
-			it.skip('should return the requested object by id', function( done ){
+			it('should return the requested object by id', function( done ){
 				server.inject({
 					url:`/api/rethink/test/${user_id}`
 					,method:'get'
@@ -432,7 +428,8 @@ describe('RethinkResource', function( ){
 			});
 		});
 		describe('#PUT detail', function(){
-			it.skip('should allow for full replacement with PUT', function( done ){
+
+			it('should allow for full replacement with PUT', function( done ){
 				payload.isActive = false;
 				payload.fruit = 'apple';
 			 	var uri =  `/api/rethink/test/${user_id}`
@@ -449,17 +446,17 @@ describe('RethinkResource', function( ){
 					}
 					,payload: payload
 				}, function( response ){
-					var res = JSON.parse( response.result );
-					console.log()
-					res.tags.length.should.equal( 2 )
 					assert.equal( response.statusCode, 200 );
-					// assert.equal( res.isActive, false );
+					var res = JSON.parse( response.result );
+					res.tags.length.should.equal( 2 )
+					assert.ok( ( new RegExp(tags[0].name)).test(res.tags[0]) );
+					assert.ok( ( new RegExp(tags[1].name)).test(res.tags[1]) );
 					assert.equal( res.fruit, payload.fruit );
 					done( );
 				});
 			});
 
-			it.skip('should reject partial updates with PUT', function( done ){
+			it('should reject partial updates with PUT', function( done ){
 				server.inject({
 					url:`/api/rethink/test/${user_id}`
 					,method:'put'
