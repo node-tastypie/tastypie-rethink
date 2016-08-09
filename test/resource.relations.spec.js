@@ -56,15 +56,14 @@ UserResource = Resource.extend({
 	  , fruit      : { type:'char', attribute:'favoriteFruit'}
 	}
 });
-
 describe('Related Resource', function( ){
 	const server = new hapi.Server();
 	server.connection({host:'localhost'});
-
+	var users, companies, tags;
 	before(function(done){
-		var users = fs.readFileSync( path.resolve( __dirname, 'data', 'test.json' ) );
-		var companies = fs.readFileSync( path.resolve( __dirname, 'data', 'company.json' ) );
-		var tags = fs.readFileSync( path.resolve( __dirname, 'data', 'tags.json' ) );
+		users = JSON.parse( fs.readFileSync( path.resolve( __dirname, 'data', 'test.json' ) ) );
+		companies = fs.readFileSync( path.resolve( __dirname, 'data', 'company.json' ) );
+		tags = fs.readFileSync( path.resolve( __dirname, 'data', 'tags.json' ) );
 
 		Promise.all([
 			User.Tag.delete(),
@@ -73,7 +72,7 @@ describe('Related Resource', function( ){
 		])
 		.then( function(){
 			User
-				.insert( JSON.parse(users) )
+				.insert( users )
 				.then(function(response){
 
 					tags = JSON.parse( tags )
@@ -203,8 +202,7 @@ describe('Related Resource', function( ){
 					}
 				}, function( response ){
 					let res = JSON.parse( response.result )
-					console.log( '##########', res );
-					response.statusCode.should.equal( 201 )
+					response.statusCode.should.equal( 201 );
 					res.company.name.should.equal( 'Google' )
 					res.company.uri.should.equal( `/api/v1/company/${res.company.id}`)
 					done();
@@ -214,7 +212,51 @@ describe('Related Resource', function( ){
 		});
 
 		describe('Has Many', function(){
-			it('should create a relation via URI', function(){});
+			it('should create a relation via URI', function(done){
+				debugger;
+				let payload = {
+					company:{
+						address: {
+							"city":  "Mountain View" ,
+							"country":  "USA" ,
+							"state":  "Californial" ,
+							"street":  "Google Rd"
+						},
+						name:"Google"
+					}
+					, name       : "Joe Blow"
+					, age        : 32
+					, eyes       : "brown"
+					, tags       : null
+					, registered : new Date()
+					, email      : "joeblow@gmail.com"
+					, latitude   : 1.0
+					, longitude  : 1.0
+					, range      : [ 2, 3 ]
+					, greeting   : "I'm Joe Blow"
+					, fruit      : "grape"
+				}
+				payload.tags = [
+					`/api/v1/tag/${tags[0].name}`,
+					`/api/v1/tag/${tags[1].name}`
+				];
+				server.inject({
+					url: "/api/v1/user" 
+					,method:'post'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+					,payload: payload
+				}, function( response ){
+					assert.equal( response.statusCode, 201 );
+					var res = JSON.parse( response.result );
+					res.tags.length.should.equal( 2 )
+					// assert.equal( res.isActive, false );
+					assert.equal( res.fruit, payload.fruit );
+					done( );
+				});
+			});
 			it('should create a relation via new object', function(){});
 			it('should create a relation via existing object', function(){});
 		});
