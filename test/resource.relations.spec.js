@@ -2,12 +2,15 @@
 'use strict';
 var fs   = require('fs')
   , path = require('path')
+  , should = require("should")
+  , assert = require('assert')
   , User = require('./data/model')
   , hapi = require('hapi')
   , tastypie = require('tastypie')
   , Resource = require('../lib/resource')
   , toArray = require("mout/lang/toArray")
   ;
+
 
 function rand( max ){
 	return Math.floor( Math.random() * (max || 96 + 1) - 0 );
@@ -43,7 +46,7 @@ UserResource = Resource.extend({
 	  , age        : { type:'int', required:true}
 	  , eyes       : { type:'char', attribute:'eyeColor'}
 	  , tags       : { type:'hasmany', to:TagResource, nullable: true, default: toArray }
-	  , company    : { type:'hasone', to:CompanyResource, nullable: true, full: true}
+	  , company    : { type:'hasone', to:CompanyResource, nullable: false, full: true, default: function(){} }
 	  , registered : { type:'datetime'}
 	  , email      : { type:'char', nullable: true}
 	  , latitude   : { type:"float"}
@@ -157,13 +160,56 @@ describe('Related Resource', function( ){
 				}, function( response ){
 					User.Company.get( company.id )
 						.then( ( c )=>{
-							console.log( c )
+							c.id.should.equal( company.id );
+							assert.ok( c.name )
+							assert.ok( c.address )
+							assert.ok( c.address.city )
 						})
 						.finally( done )
 				});
 			});
+			it('should create a relation via new object', function(done){
+				let payload = {
+					company:{
+						address: {
+							"city":  "Mountain View" ,
+							"country":  "USA" ,
+							"state":  "Californial" ,
+							"street":  "Google Rd"
+						},
+						name:"Google"
+					}
+					, name       : "Joe Blow"
+					, age        : 32
+					, eyes       : "brown"
+					, tags       : null
+					, registered : new Date()
+					, email      : "joeblow@gmail.com"
+					, latitude   : 1.0
+					, longitude  : 1.0
+					, range      : [ 2, 3 ]
+					, greeting   : "I'm Joe Blow"
+					, fruit      : "grape"
+				}
 
-			it('should create a relation via new object', function(){});
+
+				server.inject({
+					method:'post'
+					,url:'/api/v1/user'
+					,payload:payload
+					,headers:{
+						'Content-Type':'application/json'
+						,Accept:'application/json'
+					}
+				}, function( response ){
+					let res = JSON.parse( response.result )
+					console.log( '##########', res );
+					response.statusCode.should.equal( 201 )
+					res.company.name.should.equal( 'Google' )
+					res.company.uri.should.equal( `/api/v1/company/${res.company.id}`)
+					done();
+				});
+			});
 			it('should create a relation via existing object', function(){});
 		});
 

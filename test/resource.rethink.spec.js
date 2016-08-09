@@ -432,11 +432,10 @@ describe('RethinkResource', function( ){
 			});
 		});
 		describe('#PUT detail', function(){
-			it('should allow for full replacement with PUT', function( done ){
+			it.skip('should allow for full replacement with PUT', function( done ){
 				payload.isActive = false;
 				payload.fruit = 'apple';
 			 	var uri =  `/api/rethink/test/${user_id}`
-			 	console.log('PUT', user_id, uri )
 				payload.tags = [
 					`/api/rethink/tags/${tags[0].name}`,
 					`/api/rethink/tags/${tags[1].name}`
@@ -450,11 +449,9 @@ describe('RethinkResource', function( ){
 					}
 					,payload: payload
 				}, function( response ){
-					console.log( response.result )
 					var res = JSON.parse( response.result );
-
-					console.log( [tags[0], tags[1]])
-					
+					console.log()
+					res.tags.length.should.equal( 2 )
 					assert.equal( response.statusCode, 200 );
 					// assert.equal( res.isActive, false );
 					assert.equal( res.fruit, payload.fruit );
