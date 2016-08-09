@@ -33,7 +33,7 @@
     "debug": "^2.2.0",
     "mout": "^0.11.0",
     "qs": "^4.0.0",
-    "tastypie": "^4.0.1",
+    "tastypie": "^5.0.0",
     "thinky": "^2.3.0"
   },
   "peerDependencies": {
@@ -45,7 +45,7 @@
     "mocha": "^2.5.3",
     "reqlite": "^2.3.0",
     "should": "^9.0.1",
-    "tastypie": "^4.0.0",
+    "tastypie": "^5.0.0",
     "thinky": "^2.0.8"
   }
 }
