@@ -279,7 +279,7 @@ describe('RethinkResource', function( ){
 		describe('#POST list', function(){
 			var _data = clone( payload );
 			_data.age = undefined;
-			it.skip('should reject partial data', function( done ){
+			it('should reject partial data', function( done ){
 				server.inject({
 					url:'/api/rethink/test'
 					,method:'post'
@@ -473,5 +473,4 @@ describe('RethinkResource', function( ){
 		describe('#DELETE detail', function(){});
 		describe('#DELETE list', function(){});
 	})
-
-})
+});
