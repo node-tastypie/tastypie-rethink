@@ -201,7 +201,6 @@ describe('RethinkResource', function( ){
 				}
 			},function( response ){
 				response.statusCode.should.equal(200);
-
 				var content = JSON.parse( response.result );
 				content.data.length.should.be.greaterThan( 0 );
 				content.data.length.should.be.lessThan( 101 );

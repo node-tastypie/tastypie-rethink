@@ -26,6 +26,18 @@ const CompanyResource = Resource.extend({
 	}
 });
 
+const PostResource = Resource.extend({
+    options:{
+        name:'post'
+        ,pk:'post_id'
+        ,queryset:User.Post.filter({})
+    }
+
+    ,fields:{
+        title:{type:'char', required:true}
+    }
+})
+
 const TagResource = Resource.extend({
 	options:{
 		name:'tags',
@@ -45,14 +57,15 @@ UserResource = Resource.extend({
 		name       : { type:'char', attribute:'name'}
 	  , age        : { type:'int', required:true}
 	  , eyes       : { type:'char', attribute:'eyeColor'}
-	  , tags       : { type:'hasmany', to:TagResource, nullable: true, default: toArray }
-	  , company    : { type:'hasone', to:CompanyResource, nullable: false, full: true, default: function(){} }
+	  , tags       : { type:'hasmany', to:TagResource, nullable: true, default: function(){ return [] } }
+	  , company    : { type:'hasone', to:CompanyResource, nullable: false, full: true }
 	  , registered : { type:'datetime'}
 	  , email      : { type:'char', nullable: true}
 	  , latitude   : { type:"float"}
 	  , longitude  : { type:"float"}
 	  , range      : { type:'array'}
 	  , greeting   : { type:'char'}
+      , posts      : { type:'hasmany', to: PostResource, nullable: false, full: true, default: function(){ return [] } }
 	  , fruit      : { type:'char', attribute:'favoriteFruit'}
 	}
 });
@@ -213,7 +226,6 @@ describe('Related Resource', function( ){
 
 		describe('Has Many', function(){
 			it('should create a relation via URI', function(done){
-				debugger;
 				let payload = {
 					company:{
 						address: {
@@ -257,8 +269,82 @@ describe('Related Resource', function( ){
 					done( );
 				});
 			});
-			it('should create a relation via new object', function(){});
-			it('should create a relation via existing object', function(){});
+			it('should create a relation via new object', function(done){
+				let payload = {
+					company:null
+					, name       : "Joe Schmoe"
+					, age        : 45
+					, eyes       : "brown"
+					, tags       : null
+					, registered : new Date()
+					, email      : "joebschmoe@gmail.com"
+					, latitude   : 2.0
+					, longitude  : 2.0
+					, range      : [ 4, 5 ]
+					, greeting   : "I'm Joe Schmoe"
+					, fruit      : "blueberry"
+				}
+				payload.posts = [{
+                    title:'A Blog Post'
+                }];
+
+				server.inject({
+					url: "/api/v1/user" 
+					,method:'post'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+					,payload: payload
+				}, function( response ){
+					assert.equal( response.statusCode, 201 );
+					var res = JSON.parse( response.result );
+					res.posts.length.should.equal( 1 )
+					assert.ok( res.posts[0].id )
+					assert.ok( res.id )
+                    assert.equal( res.fruit, payload.fruit );
+					done( );
+				});
+ 
+            });
+			it('should create a relation via existing object', function( done ){
+				let payload = {
+					company:null
+					, name       : "billy Bob"
+					, age        : 21
+					, eyes       : "blue"
+					, tags       : null
+					, registered : new Date()
+					, email      : "billybob@gmail.com"
+					, latitude   : 3.0
+					, longitude  : 4.0
+					, range      : [ 4, 5 , 10]
+					, greeting   : "I'm Billy Bob"
+					, fruit      : "banana"
+				}
+                new User.Post({title:'This is blog 2'})
+                        .save()
+                        .then( function( post ){
+                            payload.posts = [ post ]            
+                            server.inject({
+                                url: "/api/v1/user" 
+                                ,method:'post'
+                                ,headers:{
+                                    Accept:'application/json'
+                                    ,'Content-Type':'application/json'
+                                }
+                                ,payload: payload
+                            }, function( response ){
+                                assert.equal( response.statusCode, 201 );
+                                var res = JSON.parse( response.result );
+                                res.posts.length.should.equal( 1 )
+                                assert.ok( res.posts[0].id )
+                                assert.ok( res.id )
+                                assert.equal( res.fruit, payload.fruit );
+                                done( );
+                            });
+                        })                
+            });
 		});
 	});
 	
