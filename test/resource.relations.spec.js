@@ -37,6 +37,36 @@ const ShoeResource = Resource.extend({
 	}
 })
 
+const SubSubResource = tastypie.Resource.extend({
+	options:{
+		name:'supernested',
+		includeUri: false
+	}
+
+	,fields:{
+		four:{type:'char', default:'four'}
+		,five:{type:'char', default:'five'}
+	}	
+	,constructor: function( options ){
+		this.parent('constructor', options )
+	}
+})
+
+const SubResource = tastypie.Resource.extend({
+	options:{
+		name:'nested',
+		includeUri:false
+	}
+
+	,fields:{
+		one:{type:'int', default:0}
+		,two:{type:'int', default:0}
+		,three:{ type:'document', to:SubSubResource }
+	}
+	,constructor: function( options ){
+		this.parent('constructor', options )
+	}
+})
 const CompanyResource = Resource.extend({
 	options:{
 		name:'company',
@@ -44,6 +74,9 @@ const CompanyResource = Resource.extend({
 	}
 	,fields:{
 		name:{type:'char'}
+	}
+	,constructor: function( options ){
+		this.parent('constructor', options )
 	}
 });
 
@@ -56,6 +89,9 @@ const PostResource = Resource.extend({
 
     ,fields:{
         title:{type:'char', required:true}
+    }
+    ,constructor: function( options ){
+    	this.parent('constructor', options )
     }
 })
 
@@ -89,6 +125,7 @@ UserResource = Resource.extend({
       , posts      : { type:'hasmany', to: PostResource, nullable: false, full: true, default: function(){ return [] } }
 	  , fruit      : { type:'char', attribute:'favoriteFruit'}
 	  , shoes      : { type: 'hasmany', to: ShoeResource, nullable: true, minimal: true }
+	  , nested     : { type: 'document', to: SubResource }
 	}
 });
 describe('Related Resource', function( ){
@@ -167,7 +204,7 @@ describe('Related Resource', function( ){
 				});
 			});
 
-			it.skip('should create a relation via URI', function(done){
+			it('should create a relation via URI', function(done){
 				let payload = {
 					company: company.uri
 				  , name       : "Joe Blow"
@@ -202,7 +239,7 @@ describe('Related Resource', function( ){
 						.finally( done )
 				});
 			});
-			it.skip('should create a relation via new object', function(done){
+			it('should create a relation via new object', function(done){
 				let payload = {
 					company:{
 						address: {
@@ -243,11 +280,11 @@ describe('Related Resource', function( ){
 					done();
 				});
 			});
-			it.skip('should create a relation via existing object', function(){});
+			it('should create a relation via existing object', function(){});
 		});
 
 		describe('Has Many', function(){
-			it.skip('should create a relation via URI', function(done){
+			it('should create a relation via URI', function(done){
 				let payload = {
 					company:{
 						address: {
@@ -286,12 +323,15 @@ describe('Related Resource', function( ){
 					assert.equal( response.statusCode, 201 );
 					var res = JSON.parse( response.result );
 					res.tags.length.should.equal( 2 )
-					// assert.equal( res.isActive, false );
+					assert.equal(res.nested.one, 0)
+					assert.equal(res.nested.two, 0)
+					assert.equal(res.nested.three.four, 'four')
+					assert.equal(res.nested.three.five, 'five')
 					assert.equal( res.fruit, payload.fruit );
 					done( );
 				});
 			});
-			it.skip('should create a relation via new object', function(done){
+			it('should create a relation via new object', function(done){
 				let payload = {
 					company:null
 					, name       : "Joe Schmoe"
@@ -329,7 +369,7 @@ describe('Related Resource', function( ){
 				});
  
             });
-			it.skip('should create a relation via existing object', function( done ){
+			it('should create a relation via existing object', function( done ){
 				let payload = {
 					company:null
 					, name       : "billy Bob"
@@ -391,6 +431,9 @@ describe('Related Resource', function( ){
 					, range      : [ 11, 20 ]
 					, greeting   : "I'm Johnny Twoshoes"
 					, fruit      : "grape"
+					, nested   : {
+						two: 100
+					}
 				}
 				payload.shoes = [{
                     brand:'nike',
@@ -412,12 +455,16 @@ describe('Related Resource', function( ){
 					,payload: payload
 				}, function( response ){
 					var res = JSON.parse( response.result );
-					console.log( util.inspect( res,{colors:true} ) )
 					assert.equal( response.statusCode, 201 );
 					res.shoes.length.should.equal( 2 )
 					assert.ok( res.shoes[0].id )
 					assert.ok( res.id )
                     assert.equal( res.fruit, payload.fruit );
+					assert.equal(res.nested.one, 0)
+					assert.equal(res.nested.two, 100)
+					assert.equal(res.nested.three.four, 'four')
+					assert.equal(res.nested.three.five, 'five')
+					assert.equal( res.fruit, payload.fruit );
 					done( );
 				});
  
