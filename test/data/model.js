@@ -50,17 +50,16 @@ User =  rethink.createModel('tastypie_user',{
   , eyeColor:   type.string()
   , date:       type.date()
   , name:       type.string()
- /*
-    , company:    {
-  	name:type.string()
-  	,address:{
-  		city:type.string(),
-  		state:type.string(),
-  		street:type.string(),
-  		country:type.string()
+  , contact:    {
+  	nested:{
+  		one:type.number().default( 1 ),
+  		two:type.number().default(2),
+  		three:{
+        four: type.string(),
+        five: type.string()
+      }
   	}
   }
-*/
   , email:      type.string()
   , phone:      type.string()
   , address:    type.string()
