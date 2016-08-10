@@ -470,7 +470,24 @@ describe('RethinkResource', function( ){
 				});
 			});
 		});
-		describe('#DELETE detail', function(){});
-		describe('#DELETE list', function(){});
+		describe('#DELETE detail', function(){
+			it('should remove document and relations', function( done ){
+				server.inject({
+					url:`/api/rethink/test/${user_id}`
+					,method:'delete'
+				}, function(response){
+					assert.equal( response.statusCode, 200 );
+					var res = JSON.parse( response.result );
+					Model.Tag.getAll( tags[0].name, tags[1].name )
+						.then(function( data ){
+							data.forEach(( tag )=>{
+								assert.equal( tag.user_id, null );
+							})
+							done();
+						})
+						.catch( done );
+				})
+			})
+		});
 	})
 });
