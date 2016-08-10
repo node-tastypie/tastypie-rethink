@@ -2,7 +2,8 @@ var rethink       = require( 'thinky' )({db:'tastypie'})
   , type          = rethink.type
   , User
   , Tag
-  , Power
+  , Post
+  , Shoe
 
 
 Tag = rethink.createModel('tastypie_tag',{
@@ -11,6 +12,14 @@ Tag = rethink.createModel('tastypie_tag',{
   pk:'name'
 })
 
+
+Shoe = rethink.createModel('tastypie_shoe',{
+	brand:type.string().required()
+	,color:type.string().required()
+	,size: type.number().min(1).max(20).required().default( 1 )
+},{
+	pk:'shoe_id'
+});
 
 Post = rethink.createModel('tastypie_post',{
     title: type.string()
@@ -72,7 +81,10 @@ User.hasOne( Company, 'company','id','user_id')
 User.hasMany(Tag, 'tags', 'id', 'user_id');
 User.hasMany(Post, 'posts', 'id', 'user_id');
 
+User.hasAndBelongsToMany(Shoe,'shoes', 'id','shoe_id');
+
 module.exports = User;
 module.exports.Tag = Tag
 module.exports.Company = Company;
 module.exports.Post = Post;
+module.exports.Shoe = Shoe;
