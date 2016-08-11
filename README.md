@@ -162,9 +162,9 @@ To get back xml just change the `Accept` header
 
 ### Relationships
 
-There are three new field types to deal with related data - the [hasone](./tree/master/lib/fields/hasone) field deals with foreign key type relations.
-The [hasmany](./tree/masterlib/fields/hasmany) field deals with both many to many relations and reverse end of a foreign key ( many to one ).
-The [document](./tree/masterlib/fields/document) manages nested documents to an arbitrary level with in the same document.
+There are three new field types to deal with related data - the [hasone](tree/master/lib/fields/hasone) field deals with foreign key type relations.
+The [hasmany](tree/masterlib/fields/hasmany) field deals with both many to many relations and reverse end of a foreign key ( many to one ).
+The [document](tree/masterlib/fields/document) manages nested documents to an arbitrary level with in the same document.
 
 Using these fields on resources allows for creation or linking of documents through either a valid URI pointing to another resource,
 or existing objects. 
