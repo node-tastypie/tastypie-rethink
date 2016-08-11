@@ -76,24 +76,28 @@ You might have noticed the filtering field on the schema. One of the things that
 
 #### Filter Types
 
-| Filter      | function                                  |
-| ------------|------------------------------------------ |
-| gt          | greater than                              |
-| gte         | greater than or equal to                  |
-| lt          | less than                                 |
-| lte         | less than or equal to                     |
-| in          | Value in set ( [ 1,2,3 ])                 |
-| nin         | Value Not in set                          |
-| size        | Size of set ( array length )              |
-| startswith  | Case Sensitive string match               |
-| istartswith | Case Insensitive string match             |
-| endswith    | Case Sensitive string match               |
-| iendswith   | Case Insensitive string match             |
-| contains    | Case Sensitive global string match        |
-| icontains   | Case Insensitive global string match      |
-| exact ( = ) | Exact Case Sensitive string match         |
-| iexact      | Exact Case Insensitive string match       |
-| match       | Matches an item in an array ( elemMatch ) |
+| Filter      | function                                         |
+| ------------|------------------------------------------------- |
+| gt          | greater than                                     |
+| gte         | greater than or equal to                         |
+| lt          | less than                                        |
+| lte         | less than or equal to                            |
+| in          | Value in set ( [ 1,2,3 ])                        |
+| nin         | Value Not in set                                 |
+| size        | Size of set ( array length )                     |
+| startswith  | Case Sensitive string match                      |
+| istartswith | Case Insensitive string match                    |
+| endswith    | Case Sensitive string match                      |
+| iendswith   | Case Insensitive string match                    |
+| contains    | Case Sensitive global string match               |
+| icontains   | Case Insensitive global string match             |
+| exact ( = ) | Exact Case Sensitive string match                |
+| iexact      | Exact Case Insensitive string match              |
+| match       | Matches an item in an array ( elemMatch )        |
+| isnull      | matches null values                              |
+| month       | Matches date values on a specific month          |
+| day         | Matches date values on a speciec day of the week |
+| year        | Matches date values on a specific year           |
 
 Filters are added by appending a double underscore ``__`` and the filter type to the end of a field name. Given our example, if we wanted to find people who were older than 25, we would use the following URI syntax
 
@@ -154,4 +158,108 @@ To get back xml just change the `Accept` header
   </object>
  </data>
 </response>
+```
+
+### Relationships
+
+There are three new field types to deal with related data - the [hasone](./lib/fields/hasone) field deals with foreign key type relations.
+The [hasmany](./lib/fields/hasmany) field deals with both many to many relations and reverse end of a foreign key ( many to one ).
+The [document](./lib/fields/document) manages nested documents to an arbitrary level with in the same document.
+
+Using these fields on resources allows for creation or linking of documents through either a valid URI pointing to another resource,
+or existing objects. 
+
+
+```js
+                                        tastypie.Resource.extend({
+                                          options:{
+                                              name:'address',
+                                          },
+                                          fields:{
+                                            state    : { type: 'char', nullable: false},
+                                            city     : { type: 'char', nullable: false},
+                                            street   : { type: 'char', nullable: false},
+                                            country  : { type: 'char', nullable: false}
+                                          }
+                                        });
+
+                                        //  NESTED DOCUMENT FIELD  
+think.createModel('tastypie_company',{  RethinkResource.extend({
+  name: type.string(),                    options:{
+  user_id: type.string(),                   name:'company'
+  address:{                                 queryset: Company.filter({})
+      state: type.string(),               },
+      city: type.string(),                fields:{
+      street: type.string(),                name    : { type:'string', required:true},
+      country: type.string()                address : { type:'document', to: AddressResource }
+  }                                       },
+)}                                        constructor: function( options ){
+                                            this.parent( 'constructor', options );
+                                          }
+                                        });
+
+                                        // HAS ONE RELATION w/ DOCUMENT FIELD
+rethink.createModel('tastypie_user',{   RethinkResource.extend({
+    name:       type.string()             options:{
+  , age:        type.number()               name:'user'
+  , eyeColor:   type.string()               queryset: User.filter({})
+  , email:      type.string()             },
+  , phone:      type.string()             fields:{
+  , registered: type.date()                 name    : { type: 'string', required:true },
+});                                         company : { type: 'hasone', to: CompanyResource, nullable:true },
+User.hasOne(Company,'company','id','id')    address : { type: 'document', to: AddressResource }
+                                            eyes    : { type: 'char', attribute: 'eyeColor' },
+                                            phone   : { type: 'char'},
+                                            registered : { type: 'datetime' }
+                                          },
+                                          constructor: function( options ){
+                                            this.parent( 'constructor', options );
+                                          }
+                                        });
+
+v1     = new tastypie.Api('api/v1');
+server = new hapi.Server();
+v1.use( new CompanyResource());
+v1.use( new UserResource() );
+
+server.connection({port:3000});
+
+server.register([v1], function(){
+  server.start( console.log );
+});
+```
+
+
+With this set up you are able to create the `User`, `Company` and `Address` with a single request by
+posting data like this
+
+```js
+{
+  "name":"Billy Blanks",
+  "phone":"2125555555",
+  "eyes":"blue",
+  "age": 21,
+  "registered":"2016-08-11T12:08:27.691Z"
+  "company":{
+    "name":"TaeBo",
+    "address":{
+       . . .
+    }
+  },
+  "address":{
+     . . . 
+  }
+}
+```
+
+Linking Documents is just as easy. You may send a request payload using the URI provided by the corresponding endpoint for the resource, or
+send an object containing the primary key  property set. Below are example payloads that would let a user to company `5a029ea5-142d-4056-bda5-8dc902a7b954`
+
+```js
+{                                                                  {
+  . . .                                                              . . .
+  "company":"/api/v1/company/5a029ea5-142d-4056-bda5-8dc902a7b954"   "company":{
+}                                                                        "id":"5a029ea5-142d-4056-bda5-8dc902a7b954"
+                                                                     }
+                                                                   }
 ```
