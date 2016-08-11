@@ -72,7 +72,10 @@ User =  rethink.createModel('tastypie_user',{
 });
 
 
-
+User.pre('save',function( next ){
+  this.registered = new Date( this.registered )
+  next();
+})
 
 User.r = rethink.r
 
