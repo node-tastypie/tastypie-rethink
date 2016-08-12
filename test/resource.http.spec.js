@@ -100,6 +100,7 @@ describe('RethinkResource', function( ){
 		Promise.all([
 			Model.Tag.delete(),
 			Model.Company.delete(),
+			Model.Address.delete(),
 			Model.delete()
 		])
 		.then(function(){
@@ -139,7 +140,7 @@ describe('RethinkResource', function( ){
 		it('should accurately parse data', function(done){
 			var data = require('./data/test.json');
 	    	delete data[0].id;
-		
+
 			server.inject({
 				method:'post'
 				,url:'/api/rethink/test'

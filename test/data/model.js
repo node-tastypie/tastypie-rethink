@@ -4,6 +4,8 @@ var rethink       = require( 'thinky' )({db:'tastypie'})
   , Tag
   , Post
   , Shoe
+  , Address
+  ;
 
 
 Tag = rethink.createModel('tastypie_tag',{
@@ -12,6 +14,13 @@ Tag = rethink.createModel('tastypie_tag',{
   pk:'name'
 })
 
+Address = rethink.createModel('tastypie_address',{
+	state: type.string(),
+	city: type.string(),
+	street: type.string(),
+	country: type.string(),
+  company_id: type.string()
+});
 
 Shoe = rethink.createModel('tastypie_shoe',{
 	brand:type.string().required()
@@ -30,13 +39,7 @@ Post = rethink.createModel('tastypie_post',{
 
 var Company = rethink.createModel('tastypie_company',{
     name: type.string(),
-    user_id: type.string(),
-    address:{
-        state: type.string(),
-        city: type.string(),
-        street: type.string(),
-        country: type.string()
-    }
+    user_id: type.string()
 })
 
 
@@ -71,12 +74,11 @@ User =  rethink.createModel('tastypie_user',{
 
 
 User.pre('save',function( next ){
-  this.registered = new Date( this.registered )
   next();
 })
 
 User.r = rethink.r
-
+Company.hasOne(Address,'address','id','company_id');
 User.hasOne( Company, 'company','id','user_id')
 User.hasMany(Tag, 'tags', 'id', 'user_id');
 User.hasMany(Post, 'posts', 'id', 'user_id');
@@ -88,3 +90,4 @@ module.exports.Tag = Tag
 module.exports.Company = Company;
 module.exports.Post = Post;
 module.exports.Shoe = Shoe;
+module.exports.Address = Address;
