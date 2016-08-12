@@ -66,14 +66,32 @@ const SubResource = tastypie.Resource.extend({
 	,constructor: function( options ){
 		this.parent('constructor', options )
 	}
-})
+});
+
+const AddressResource = Resource.extend({
+    options:{
+        name:'company',
+        queryset: User.Address.filter({})
+    }
+
+    ,fields:{
+        state: { type: 'char'},
+        city: { type: 'char'},
+        street: { type: 'char'},
+        country: { type: 'char'}
+    }
+    ,constructor: function( options ){
+        this.parent('constructor')
+    }
+});
 const CompanyResource = Resource.extend({
 	options:{
 		name:'company',
 		queryset:User.Company.filter({})
 	}
 	,fields:{
-		name:{type:'char'}
+		name:{type:'char'},
+        address:{ type:'hasone', to: AddressResource }
 	}
 	,constructor: function( options ){
 		this.parent('constructor', options )
@@ -131,14 +149,16 @@ UserResource = Resource.extend({
 describe('Related Resource', function( ){
 	const server = new hapi.Server();
 	server.connection({host:'localhost'});
-	var users, companies, tags;
+	var users, companies, tags, address;
 	before(function(done){
 		users = JSON.parse( fs.readFileSync( path.resolve( __dirname, 'data', 'test.json' ) ) );
 		companies = fs.readFileSync( path.resolve( __dirname, 'data', 'company.json' ) );
 		tags = fs.readFileSync( path.resolve( __dirname, 'data', 'tags.json' ) );
+		address = fs.readFileSync( path.resolve( __dirname, 'data', 'address.json' ) );
 
 		Promise.all([
 			User.Tag.delete(),
+			User.Address.delete(),
 			User.Company.delete(),
 			User.delete()
 		])
@@ -153,16 +173,22 @@ describe('Related Resource', function( ){
 								return tag;
 							});
 
+					address = JSON.parse( address )
+
 					companies = JSON.parse( companies ).map( function( company ){
 						company.user_id = response.generated_keys.pop();
 						return company;
 					});
 
 					Promise.all([
-						User.Tag.insert( tags ),
-						User.Company.insert( companies )
+						User.Tag.insert( tags, {durability: 'soft'}),
+						User.Company.save( companies ,{durability:'soft'}),
+						User.Address.save( address, {durability:'soft'})
 					])
-					.then( () => done() )
+					.then( (results) => {
+						Promise.all(results[1].map( ( company )=>{ return company.addRelation( 'address', results[2].pop() ) } ))
+							.then( ()=> done() )
+					} )
 					.catch( done );
 				});
 		})
@@ -229,7 +255,9 @@ describe('Related Resource', function( ){
 						,Accept:'application/json'
 					}
 				}, function( response ){
-					User.Company.get( company.id )
+					User.Company
+						.get(company.id)
+						.getJoin({address: true})
 						.then( ( c )=>{
 							c.id.should.equal( company.id );
 							assert.ok( c.name )
