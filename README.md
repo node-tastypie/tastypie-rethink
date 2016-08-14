@@ -199,7 +199,7 @@ think.createModel('tastypie_company',{  RethinkResource.extend({
                                           }
                                         });
 
-                                        // HAS ONE RELATION w/ DOCUMENT FIELD
+                                        // HAS ONE RELATION
 rethink.createModel('tastypie_user',{   RethinkResource.extend({
     name:       type.string()             options:{
   , age:        type.number()               name:'user'
@@ -208,8 +208,7 @@ rethink.createModel('tastypie_user',{   RethinkResource.extend({
   , phone:      type.string()             fields:{
   , registered: type.date()                 name    : { type: 'string', required:true },
 });                                         company : { type: 'hasone', to: CompanyResource, nullable:true },
-User.hasOne(Company,'company','id','id')    address : { type: 'document', to: AddressResource }
-                                            eyes    : { type: 'char', attribute: 'eyeColor' },
+User.hasOne(Company,'company','id','id')    eyes    : { type: 'char', attribute: 'eyeColor' },
                                             phone   : { type: 'char'},
                                             registered : { type: 'datetime' }
                                           },
