@@ -49,12 +49,12 @@ Rethink = RethinkResource.extend({
     , company: 1
     }
   }
-	,fields:{
-		name:{type:'char', attribute:'name'},
-		age:{type:'int'},
-		eyes:{type:'char', attribute:'eyeColor'},
-		companyName:{ type:'char', attribute:'company.name' }
-	}
+, fields: {
+    name: {type:'char', attribute:'name'}
+  , age: {type:'int'}
+  , eyes: {type:'char', attribute:'eyeColor'}
+  , companyName:{ type:'char', attribute:'company.name' }
+  }
 });
 ```
 
