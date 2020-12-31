@@ -14,7 +14,7 @@ npm install thinky tastypie-rethink
 ```js
 // Make A Rethink Model
 var  Model = thinky.createModel('tastypie_model',{
-	index:      type.number()
+    index:      type.number()
   , guid:       type.string()
   , isActive:   type.boolean().default(false)
   , balance:    type.string()
@@ -24,17 +24,15 @@ var  Model = thinky.createModel('tastypie_model',{
   , date:       type.date()
   , name:       type.string()
   , company:    {
-  	name:type.string()
-  	,address:{
-  		city:type.string(),
-  		state:type.string(),
-  		street:type.string(),
-  		country:type.string()
-  	}
+      name: type.string()
+    , address: {
+        city: type.string()
+      , state: type.string()
+      , street: type.string()
+      , country: type.string()
+      }
   }
-
-});
-
+})
 ```
 
 ##### Define A Resource
@@ -43,14 +41,14 @@ var tastypie = require("tastypie");
 var RethinkResource = require('tastypie-rethink');
 var queryset, Rethink;
 Rethink = RethinkResource.extend({
-	options:{
-		queryset: Model.filter({});
-		,filtering:{
-			name:1,
-			age:['lt', 'lte'],
-			company:1
-		}
-	}
+  options: {
+    queryset: Model.filter({});
+  , filtering: {
+      name: 1
+    , age: ['lt', 'lte']
+    , company: 1
+    }
+  }
 	,fields:{
 		name:{type:'char', attribute:'name'},
 		age:{type:'int'},
@@ -171,20 +169,20 @@ or existing objects.
 
 
 ```js
-                                        tastypie.Resource.extend({
-                                          options:{
-                                              name:'address',
-                                              includeUri: false // <- important
-                                          },
-                                          fields:{
-                                            state    : { type: 'char', nullable: false},
-                                            city     : { type: 'char', nullable: false},
-                                            street   : { type: 'char', nullable: false},
-                                            country  : { type: 'char', nullable: false}
-                                          }
-                                        });
+tastypie.Resource.extend({
+  options: {
+    name: 'address'
+    includeUri: false // <- important
+  }
+, fields: {
+    state    : { type: 'char', nullable: false},
+    city     : { type: 'char', nullable: false},
+    street   : { type: 'char', nullable: false},
+    country  : { type: 'char', nullable: false}
+  }
+});
 
-                                        //  NESTED DOCUMENT FIELD  
+//  NESTED DOCUMENT FIELD  
 think.createModel('tastypie_company',{  RethinkResource.extend({
   name: type.string(),                    options:{
   user_id: type.string(),                   name:'company'
